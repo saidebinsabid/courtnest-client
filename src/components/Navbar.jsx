@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router";
 import logoImage from "../assets/website_logo.png";
 const Navbar = () => {
-  const { isSticky, setSticky } = useState();
+  const [isSticky, setSticky]  = useState();
   useEffect(() => {
     const handleScroll = () => {
       setSticky(window.scrollY > 20);
@@ -16,7 +16,7 @@ const Navbar = () => {
         <NavLink to="/">Home</NavLink>
       </li>
       <li>
-        <NavLink>Couts</NavLink>
+        <NavLink>Courts</NavLink>
       </li>
       <li>
         <NavLink>About</NavLink>
@@ -32,10 +32,10 @@ const Navbar = () => {
   return (
     <div
       className={`font-poppins w-full top-0 left-0 z-50 transition-all duration-300 ${
-        isSticky ? "fixed bg-black shadow-md" : "absolute bg-transparent"
+        isSticky ? "fixed bg-[#18181b] shadow-md" : "absolute bg-transparent"
       }`}
     >
-      <div className="w-11/12 mx-auto flex justify-between items-center">
+      <div className="w-11/12 mx-auto flex justify-between items-center py-3">
         <div className="navbar-start">
           <div className="flex justify-center items-center">
             <img className="w-12" src={logoImage} alt="website_logo" />
