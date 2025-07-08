@@ -12,7 +12,7 @@ import { RiPhoneLine, RiMailLine, RiMapPinLine } from "react-icons/ri";
 const Footer = () => {
   return (
     <footer
-      className="w-full bg-cover bg-center relative mt-20 font-robot"
+      className="w-full bg-cover bg-center relative font-roboto"
       style={{ backgroundImage: `url(${footerBg})` }}
     >
       {/* Black overlay */}
@@ -130,8 +130,8 @@ const Footer = () => {
             Copyright © 2025. All rights reserved
           </h1>
           <div className="flex gap-4">
-            <p className="cursor-pointer hover:underline">Privacy Policy</p>
-            <p className="cursor-pointer hover:underline">Term & Condition</p>
+            <p>Privacy Policy</p>
+            <p>Term & Condition</p>
           </div>
         </div>
       </div>

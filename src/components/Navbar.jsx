@@ -1,15 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { NavLink } from "react-router";
+import { NavLink, useLocation } from "react-router";
 import logoImage from "../assets/website_logo.png";
 const Navbar = () => {
-  const [isSticky, setSticky]  = useState();
+  const location = useLocation();
+  const isHome = location.pathname === '/'
+  const [isSticky, setSticky]  = useState(false);
   useEffect(() => {
     const handleScroll = () => {
       setSticky(window.scrollY > 20);
     };
-    window.addEventListener("scroll", handleScroll);
+    if(isHome){
+        window.addEventListener("scroll", handleScroll);
+    }
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [isHome]);
   const links = (
     <>
       <li>
@@ -25,16 +29,20 @@ const Navbar = () => {
         <NavLink>Contact</NavLink>
       </li>
       <li>
-        <NavLink>Login</NavLink>
+        <NavLink to='/auth/login'>Login</NavLink>
       </li>
     </>
   );
   return (
     <div
-      className={`font-poppins w-full top-0 left-0 z-50 transition-all duration-300 ${
-        isSticky ? "fixed bg-[#18181b] shadow-md" : "absolute bg-transparent"
-      }`}
-    >
+  className={`font-poppins w-full top-0 left-0 z-50 transition-all duration-300 ${
+    isHome
+      ? isSticky
+        ? "sticky top-0 z-10 bg-[#18181b] shadow-md"
+        : "absolute bg-transparent"
+      : "sticky top-0 z-10 bg-[#18181b] shadow-md"
+  }`}
+>
       <div className="w-11/12 mx-auto flex justify-between items-center py-3">
         <div className="navbar-start">
           <div className="flex justify-center items-center">
