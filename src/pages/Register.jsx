@@ -5,11 +5,11 @@ import Lottie from "lottie-react";
 import registerAnimation from "../assets/register.json";
 import { FaGoogle, FaFacebookF, FaTwitter } from "react-icons/fa";
 import useAuth from "../hooks/useAuth";
-import Loading from "../components/Loading";
 import { toast } from "react-toastify";
 
 const Register = () => {
-  const { createUser, updateUser, createUserGoogle, loading } = useAuth();
+  const { createUser, setUser, updateUser, createUserGoogle, setLoading } =
+    useAuth();
   const navigate = useNavigate();
   const {
     register,
@@ -21,32 +21,71 @@ const Register = () => {
   const onSubmit = (data) => {
     const { name, email, password, photoURL } = data;
     createUser(email, password)
-      .then(() => {
+      .then((result) => {
+        const user = result.user;
         updateUser({
           displayName: name,
           photoURL: photoURL,
-        }).then(() => {
-          toast.success("Registration successful!");
-          navigate("/");
-          reset();
-        });
+        })
+          .then(() => {
+            setUser({
+              ...user,
+              displayName: name,
+              photoURL: photoURL,
+            });
+            toast.success("Registration successful!");
+            setLoading(false);
+            navigate("/");
+            reset();
+          })
+          .catch(() => {
+            setUser(user);
+            toast.success("Successfully registered!");
+            setLoading(false);
+            navigate("/");
+          });
       })
       .catch((err) => {
         toast.error(err.message || "Something went wrong.");
+        setLoading(false);
       });
   };
 
   const handleGoogleLogin = () => {
+    setLoading(true);
     createUserGoogle()
-      .then(() => {
-        toast.success("Logged in with Google!");
-        navigate("/");
+      .then((result) => {
+        const user = result.user;
+        const name = user.displayName || "Google User";
+        const photo = user.photoURL || "";
+
+        updateUser({ displayName: name, photoURL: photo })
+          .then(() => {
+            setUser({
+              ...user,
+              displayName: name,
+              photoURL: photo,
+            });
+            toast.success("Successfully registered with Google!");
+            setLoading(false);
+            navigate("/");
+          })
+          .catch(() => {
+            // console.error("Error updating user profile:", error);
+            setUser({
+              ...user,
+              displayName: name,
+              photoURL: photo,
+            });
+            toast.success("Successfully registered with Google!");
+            setLoading(false);
+          });
       })
-      .catch((err) => {
-        toast.error(err.message || "Google sign-in failed.");
+      .catch((error) => {
+        toast.error(error.message || "Registration failed. Please try again.");
+        setLoading(false);
       });
   };
-  if (loading) return <Loading />;
   return (
     <section className="w-11/12 mx-auto bg-base-100 flex items-center justify-center py-24 font-roboto">
       <div className="bg-white shadow-2xl rounded-lg p-6 md:p-12 w-full max-w-5xl flex flex-col md:flex-row gap-10 items-center">

@@ -1,10 +1,12 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { NavLink } from "react-router";
+import { NavLink, useLocation, useNavigate } from "react-router";
 import { FaGoogle, FaFacebookF, FaTwitter } from "react-icons/fa";
 import Lottie from "lottie-react";
 import loginAnimation from "../assets/login.json";
 import logo from "../assets/website_logo.png";
+import useAuth from "../hooks/useAuth";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const {
@@ -12,10 +14,53 @@ const Login = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const { signInUser, setLoading, createUserGoogle, updateUser, setUser } =
+    useAuth();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const from = location.state?.from || "/";
 
-  const onSubmit = (data) => {
-    console.log(data);
-    // handle login logic
+  const onSubmit = async (data) => {
+    try {
+      setLoading(true);
+      const result = await signInUser(data.email, data.password);
+      const user = result.user;
+      setUser({
+        displayName: user.displayName,
+        email: user.email,
+        photoURL: user.photoURL,
+      });
+      toast.success("Login successful");
+      navigate(from, { replace: true });
+    } catch (error) {
+      toast.error(error.message || "Login failed");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleGoogleLogin = async () => {
+    try {
+      setLoading(true);
+      const result = await createUserGoogle();
+      const user = result.user;
+      const name = user.displayName || "Google User";
+      const photo = user.photoURL || "";
+
+      await updateUser({ displayName: name, photoURL: photo });
+
+      setUser({
+        displayName: name,
+        photoURL: photo,
+      });
+
+      toast.success("Google login successful");
+      navigate(from, { replace: true });
+    } catch (error) {
+      toast.error(error.message || "Google login failed");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -127,7 +172,10 @@ const Login = () => {
 
           {/* Social Login */}
           <div className="flex items-center justify-center gap-4 pt-4">
-            <button className="rounded-full p-2 border text-[#DB4437] border-gray-300 hover:bg-[#DB4437]/10 transition">
+            <button
+              onClick={handleGoogleLogin}
+              className="rounded-full p-2 border text-[#DB4437] border-gray-300 hover:bg-[#DB4437]/10 transition"
+            >
               <FaGoogle size={18} />
             </button>
             <button className="rounded-full p-2 border text-[#4267B2] border-gray-300 hover:bg-[#4267B2]/10 transition cursor-not-allowed">
