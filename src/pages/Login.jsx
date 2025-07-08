@@ -19,7 +19,7 @@ const Login = () => {
   };
 
   return (
-    <section className="w-11/12 mx-auto bg-base-100 px-4 py-24 font-robotoo">
+    <section className="w-11/12 mx-auto bg-base-100 py-24 font-robotoo">
       <div className="bg-white shadow-2xl rounded-lg overflow-hidden max-w-5xl w-full mx-auto grid grid-cols-1 md:grid-cols-2">
         {/* Left - Lottie */}
         <div className="bg-gray-100 p-6 flex items-center justify-center">
@@ -60,7 +60,7 @@ const Login = () => {
               </label>
               <input
                 name="email"
-                id="useremail"
+                id="email"
                 placeholder="Email"
                 type="email"
                 {...register("email", {
@@ -87,7 +87,7 @@ const Login = () => {
               <input
                 name="password"
                 type="password"
-                id="userpassword"
+                id="password"
                 placeholder="Password"
                 {...register("password", {
                   required: "Password is required",
@@ -130,10 +130,10 @@ const Login = () => {
             <button className="rounded-full p-2 border text-[#DB4437] border-gray-300 hover:bg-[#DB4437]/10 transition">
               <FaGoogle size={18} />
             </button>
-            <button className="rounded-full p-2 border text-[#4267B2] border-gray-300 hover:bg-[#4267B2]/10 transition">
+            <button className="rounded-full p-2 border text-[#4267B2] border-gray-300 hover:bg-[#4267B2]/10 transition cursor-not-allowed">
               <FaFacebookF size={18} />
             </button>
-            <button className="rounded-full p-2 border text-[#1DA1F2] border-gray-300 hover:bg-[#1DA1F2]/10 transition">
+            <button className="rounded-full p-2 border text-[#1DA1F2] border-gray-300 hover:bg-[#1DA1F2]/10 transition cursor-not-allowed">
               <FaTwitter size={18} />
             </button>
           </div>
