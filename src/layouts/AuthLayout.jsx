@@ -7,7 +7,7 @@ const AuthLayout = () => {
     return (
         <div className='flex flex-col min-h-screen'>
             <Navbar></Navbar>
-            <main className='min-h-[calc(100vh-472px)]'>
+            <main className='min-h-[calc(100vh-512px)]'>
                 <Outlet></Outlet>
             </main>
             <footer>

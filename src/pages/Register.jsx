@@ -1,22 +1,52 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { NavLink } from "react-router";
+import { NavLink, useNavigate } from "react-router";
 import Lottie from "lottie-react";
 import registerAnimation from "../assets/register.json";
 import { FaGoogle, FaFacebookF, FaTwitter } from "react-icons/fa";
+import useAuth from "../hooks/useAuth";
+import Loading from "../components/Loading";
+import { toast } from "react-toastify";
 
 const Register = () => {
+  const { createUser, updateUser, createUserGoogle, loading } = useAuth();
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
 
   const onSubmit = (data) => {
-    console.log("Registration Data:", data);
-    // Future: send data to MongoDB via API
+    const { name, email, password, photoURL } = data;
+    createUser(email, password)
+      .then(() => {
+        updateUser({
+          displayName: name,
+          photoURL: photoURL,
+        }).then(() => {
+          toast.success("Registration successful!");
+          navigate("/");
+          reset();
+        });
+      })
+      .catch((err) => {
+        toast.error(err.message || "Something went wrong.");
+      });
   };
 
+  const handleGoogleLogin = () => {
+    createUserGoogle()
+      .then(() => {
+        toast.success("Logged in with Google!");
+        navigate("/");
+      })
+      .catch((err) => {
+        toast.error(err.message || "Google sign-in failed.");
+      });
+  };
+  if (loading) return <Loading />;
   return (
     <section className="w-11/12 mx-auto bg-base-100 flex items-center justify-center py-24 font-roboto">
       <div className="bg-white shadow-2xl rounded-lg p-6 md:p-12 w-full max-w-5xl flex flex-col md:flex-row gap-10 items-center">
@@ -151,7 +181,10 @@ const Register = () => {
 
           {/* Social Login */}
           <div className="flex items-center justify-center gap-4 pt-4">
-            <button className="rounded-full p-2 border text-[#DB4437] border-gray-300 hover:bg-[#DB4437]/10 transition">
+            <button
+              className="rounded-full p-2 border text-[#DB4437] border-gray-300 hover:bg-[#DB4437]/10 transition"
+              onClick={handleGoogleLogin}
+            >
               <FaGoogle size={18} />
             </button>
             <button className="rounded-full p-2 border text-[#4267B2] border-gray-300 hover:bg-[#4267B2]/10 transition cursor-not-allowed">
