@@ -110,7 +110,7 @@ const DashboardLayout = () => {
         </NavLink>
       </li>
       <li>
-        <NavLink to="">
+        <NavLink to="/dashboard/manage-court">
           <FaThLarge className="mr-2" /> Manage Courts
         </NavLink>
       </li>

@@ -204,7 +204,7 @@ const Navbar = () => {
                   </span>
                 </li>
                 <li>
-                  <NavLink className="flex items-center" to="/dashboard">
+                  <NavLink className="flex items-center hover:text-primary hover:font-semibold" to="/dashboard">
                     <FaTachometerAlt className="mr-2" /> Dashboard
                   </NavLink>
                 </li>

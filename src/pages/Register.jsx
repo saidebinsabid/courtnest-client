@@ -6,11 +6,13 @@ import registerAnimation from "../assets/register.json";
 import { FaGoogle, FaFacebookF, FaTwitter } from "react-icons/fa";
 import useAuth from "../hooks/useAuth";
 import { toast } from "react-toastify";
+import useAxios from "../hooks/useAxios";
 
 const Register = () => {
   const { createUser, setUser, updateUser, createUserGoogle, setLoading } =
     useAuth();
   const navigate = useNavigate();
+  const axiosInstance = useAxios();
   const {
     register,
     handleSubmit,
@@ -18,73 +20,75 @@ const Register = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     const { name, email, password, photoURL } = data;
-    createUser(email, password)
-      .then((result) => {
-        const user = result.user;
-        updateUser({
-          displayName: name,
-          photoURL: photoURL,
-        })
-          .then(() => {
-            setUser({
-              ...user,
-              displayName: name,
-              photoURL: photoURL,
-            });
-            toast.success("Registration successful!");
-            setLoading(false);
-            navigate("/");
-            reset();
-          })
-          .catch(() => {
-            setUser(user);
-            toast.success("Successfully registered!");
-            setLoading(false);
-            navigate("/");
-          });
-      })
-      .catch((err) => {
-        toast.error(err.message || "Something went wrong.");
-        setLoading(false);
+    try {
+      const result = await createUser(email, password);
+      const user = result.user;
+
+      await updateUser({
+        displayName: name,
+        photoURL: photoURL,
       });
+
+      const userInfo = {
+        name,
+        email,
+        photoURL,
+        role: "user",
+        registered_at: new Date().toISOString(),
+        last_log_in: new Date().toISOString(),
+      };
+      await axiosInstance.post("/users", userInfo);
+
+      setUser({
+        ...user,
+        displayName: name,
+        photoURL: photoURL,
+      });
+
+      toast.success("Registration successful!");
+      setLoading(false);
+      navigate("/");
+      reset();
+    } catch (err) {
+      toast.error(err.message || "Something went wrong.");
+      setLoading(false);
+    }
   };
 
-  const handleGoogleLogin = () => {
+  const handleGoogleLogin = async () => {
     setLoading(true);
-    createUserGoogle()
-      .then((result) => {
-        const user = result.user;
-        const name = user.displayName || "Google User";
-        const photo = user.photoURL || "";
+    try {
+      const result = await createUserGoogle();
+      const user = result.user;
+      const name = user.displayName || "Google User";
+      const photo = user.photoURL || "";
 
-        updateUser({ displayName: name, photoURL: photo })
-          .then(() => {
-            setUser({
-              ...user,
-              displayName: name,
-              photoURL: photo,
-            });
-            toast.success("Successfully registered with Google!");
-            setLoading(false);
-            navigate("/");
-          })
-          .catch(() => {
-            // console.error("Error updating user profile:", error);
-            setUser({
-              ...user,
-              displayName: name,
-              photoURL: photo,
-            });
-            toast.success("Successfully registered with Google!");
-            setLoading(false);
-          });
-      })
-      .catch((error) => {
-        toast.error(error.message || "Registration failed. Please try again.");
-        setLoading(false);
+      await updateUser({ displayName: name, photoURL: photo });
+      const userInfo = {
+        name,
+        email: user.email,
+        photoURL: photo,
+        role: "user",
+        registered_at: new Date().toISOString(),
+        last_log_in: new Date().toISOString(),
+      };
+
+      await axiosInstance.post("/users", userInfo);
+      setUser({
+        ...user,
+        displayName: name,
+        photoURL: photo,
       });
+
+      toast.success("Successfully registered with Google!");
+      navigate("/");
+    } catch (error) {
+      toast.error(error.message || "Registration failed. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
   return (
     <section className="w-11/12 mx-auto bg-base-100 flex items-center justify-center py-24 font-roboto">

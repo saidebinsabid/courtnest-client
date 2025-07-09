@@ -8,7 +8,8 @@ import ErrorPage from "../pages/ErrorPage";
 import PrivateRoute from "../provider/PrivateRoute";
 import DashboardLayout from "../layouts/DashboardLayout";
 import DashboardHome from "../pages/Dashboard/DashboardHome";
-import Forbidden from "../pages/Forbidden";
+import AdminRoute from "../routes/AdminRoute";
+import ManageCourts from "../pages/Dashboard/ManageCourts";
 
 
 export const router = createBrowserRouter([
@@ -43,6 +44,10 @@ export const router = createBrowserRouter([
       {
         index:true,
         element: <DashboardHome></DashboardHome>
+      },
+      {
+        path: 'manage-court',
+        element:<AdminRoute><ManageCourts></ManageCourts></AdminRoute>
       }
     ]
 

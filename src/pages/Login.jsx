@@ -50,6 +50,7 @@ const Login = () => {
       await updateUser({ displayName: name, photoURL: photo });
 
       setUser({
+        ...result.user,
         displayName: name,
         photoURL: photo,
       });
