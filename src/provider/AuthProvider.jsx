@@ -11,6 +11,7 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { app } from "../firebase/firebase.config";
+import useSaveUser from "../hooks/useSaveUser";
 
 export const AuthContext = createContext();
 const auth = getAuth(app);
@@ -18,6 +19,7 @@ const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const provider = new GoogleAuthProvider();
+  const saveUser = useSaveUser();
   const createUser = (email, password) => {
     setLoading(true);
     return createUserWithEmailAndPassword(auth, email, password);
@@ -36,7 +38,7 @@ const AuthProvider = ({ children }) => {
     return signInWithEmailAndPassword(auth, email, password);
   };
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       if (currentUser) {
         console.log(currentUser);
         const { displayName, email, uid, photoURL, accessToken } = currentUser;
@@ -47,6 +49,11 @@ const AuthProvider = ({ children }) => {
           photoURL,
           accessToken,
         };
+        try {
+          await saveUser(currentUser);
+        } catch (error) {
+          console.error("Saving user failed");
+        }
         setUser(extendedUser);
         // console.log(extendedUser.accessToken);
       } else {
