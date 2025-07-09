@@ -18,6 +18,119 @@ import logoImage from "../assets/website_logo.png";
 import useUserRole from "../hooks/useUserRole";
 
 const DashboardLayout = () => {
+  const userLinks = (
+    <>
+      <li className="border-t border-b border-white/20 py-2 font-semibold text-sm text-center uppercase text-gray-400">
+        User Panel
+      </li>
+      <li>
+        <NavLink to="">
+          <FaUser className="mr-2" /> My Profile
+        </NavLink>
+      </li>
+      <li>
+        <NavLink to="">
+          <FaClock className="mr-2" /> Pending Bookings
+        </NavLink>
+      </li>
+      <li>
+        <NavLink to="">
+          <FaBullhorn className="mr-2" /> Announcements
+        </NavLink>
+      </li>
+    </>
+  );
+  const memberLinks = (
+    <>
+      <li className="border-t border-b border-white/20 py-2 font-semibold text-sm text-center uppercase text-gray-400">
+        Member Panel
+      </li>
+      <li>
+        <NavLink to="">
+          <FaUser className="mr-2" /> My Profile
+        </NavLink>
+      </li>
+      <li>
+        <NavLink to="">
+          <FaClock className="mr-2" /> Pending Bookings
+        </NavLink>
+      </li>
+      <li>
+        <NavLink to="">
+          <FaBullhorn className="mr-2" /> Announcements
+        </NavLink>
+      </li>
+
+      <li>
+        <NavLink to="">
+          <FaCheckCircle className="mr-2" /> Approved Bookings
+        </NavLink>
+      </li>
+      <li>
+        <NavLink to="">
+          <FaClipboardCheck className="mr-2" /> Confirmed Bookings
+        </NavLink>
+      </li>
+      <li>
+        <NavLink to="">
+          <FaMoneyBillAlt className="mr-2" /> Payment Page
+        </NavLink>
+      </li>
+      <li>
+        <NavLink to="">
+          <FaHistory className="mr-2" /> Payment History
+        </NavLink>
+      </li>
+    </>
+  );
+  const adminLinks = (
+    <>
+      {/* Admin Routes */}
+      <li className="border-t border-b border-white/20 py-2 font-semibold text-sm uppercase text-center text-gray-400">
+        Admin Panel
+      </li>
+      <li>
+        <NavLink to="">
+          <FaUserShield className="mr-2" /> Admin Profile
+        </NavLink>
+      </li>
+      <li>
+        <NavLink to="">
+          <FaClipboardCheck className="mr-2" /> Manage Bookings
+        </NavLink>
+      </li>
+      <li>
+        <NavLink to="">
+          <FaUsersCog className="mr-2" /> Manage Members
+        </NavLink>
+      </li>
+      <li>
+        <NavLink to="">
+          <FaUsers className="mr-2" /> All Users
+        </NavLink>
+      </li>
+      <li>
+        <NavLink to="">
+          <FaThLarge className="mr-2" /> Manage Courts
+        </NavLink>
+      </li>
+      <li>
+        <NavLink to="">
+          <FaClipboardCheck className="mr-2" /> Confirmed Bookings
+        </NavLink>
+      </li>
+      <li>
+        <NavLink to="">
+          <FaTags className="mr-2" /> Manage Coupons
+        </NavLink>
+      </li>
+      <li>
+        <NavLink to="">
+          <FaBullhorn className="mr-2" /> Make Announcement
+        </NavLink>
+      </li>
+    </>
+  );
   const { role, roleLoading } = useUserRole();
   return (
     <div className="drawer lg:drawer-open font-roboto">
@@ -25,6 +138,7 @@ const DashboardLayout = () => {
 
       <div className="drawer-content flex flex-col min-h-screen bg-gray-100 dark:bg-gray-900">
         {/* Navbar (Mobile only) */}
+
         <div className="navbar bg-[#18181b]/100 backdrop-blur-md w-full lg:hidden shadow-md">
           <div className="flex-none">
             <label htmlFor="my-drawer-2">
@@ -45,122 +159,30 @@ const DashboardLayout = () => {
           </div>
           <div className="text-white font-bold text-lg ml-2">Dashboard</div>
         </div>
-
         {/* Outlet / Page content */}
-        <div className="p-4">
+        <div className="flex-grow flex flex-col">
           <Outlet />
         </div>
       </div>
 
       {/* Sidebar */}
+
       <div className="drawer-side">
         <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
         <ul className="menu bg-[#18181b]/100 backdrop-blur-md min-h-screen w-72 p-4 text-white space-y-1">
           {/* Logo */}
-          <NavLink to='/'>
+          <NavLink to="/">
             <div className="flex items-center gap-2 mb-4">
-            <img className="w-10 h-10" src={logoImage} alt="logo" />
-            <h1 className="text-2xl font-semibold tracking-wide">
-              Court<span className="text-primary">Nest</span>
-            </h1>
-          </div>
+              <img className="w-10 h-10" src={logoImage} alt="logo" />
+              <h1 className="text-2xl font-semibold tracking-wide">
+                Court<span className="text-primary">Nest</span>
+              </h1>
+            </div>
           </NavLink>
 
-          {!roleLoading && role === "user" || role === "member" &&(
-            <>
-            <li>
-            <NavLink to="">
-              <FaUser className="mr-2" /> My Profile
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="">
-              <FaClock className="mr-2" /> Pending Bookings
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="">
-              <FaBullhorn className="mr-2" /> Announcements
-            </NavLink>
-          </li>
-            </>
-          )}
-          {!roleLoading && role === "member" && (
-            <>
-              <li className="mt-4 border-t border-white/20 pt-2 font-semibold text-sm uppercase text-gray-400">
-                Member Panel
-              </li>
-              <li>
-                <NavLink to="">
-                  <FaCheckCircle className="mr-2" /> Approved Bookings
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to="">
-                  <FaClipboardCheck className="mr-2" /> Confirmed Bookings
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to="">
-                  <FaMoneyBillAlt className="mr-2" /> Payment Page
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to="">
-                  <FaHistory className="mr-2" /> Payment History
-                </NavLink>
-              </li>
-            </>
-          )}
-
-          {!roleLoading && role === "admin" && (
-            <>
-              {/* Admin Routes */}
-              <li className="border-t border-b border-white/20 py-2 font-semibold text-sm uppercase text-center text-gray-400">
-                Admin Panel
-              </li>
-              <li>
-                <NavLink to="">
-                  <FaUserShield className="mr-2" /> Admin Profile
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to="">
-                  <FaClipboardCheck className="mr-2" /> Manage Bookings
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to="">
-                  <FaUsersCog className="mr-2" /> Manage Members
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to="">
-                  <FaUsers className="mr-2" /> All Users
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to="">
-                  <FaThLarge className="mr-2" /> Manage Courts
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to="">
-                  <FaClipboardCheck className="mr-2" /> Confirmed Bookings
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to="">
-                  <FaTags className="mr-2" /> Manage Coupons
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to="">
-                  <FaBullhorn className="mr-2" /> Make Announcement
-                </NavLink>
-              </li>
-            </>
-          )}
+          {!roleLoading && role === "user" && userLinks}
+          {!roleLoading && role === "member" && memberLinks}
+          {!roleLoading && role === "admin" && adminLinks}
         </ul>
       </div>
     </div>
