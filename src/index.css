@@ -21,12 +21,30 @@
   --color-neutral-content: #1f2937;
 }
 
+
 @layer base {
   h1, h2, h3, h4, h5, h6,
   .font-poppins {
     font-family: 'Poppins', sans-serif;
   }
+
+  p, span, 
    .font-roboto {
     font-family: "Roboto", sans-serif;
   }
+}
+
+/* Swiper pagination dot custom styles */
+.swiper-pagination {
+  margin-top: 30px !important; /* move dots further below */
+  position: relative !important;
+}
+
+.swiper-pagination-bullet {
+  background-color: #facc15 !important; /* yellow-400 from Tailwind */
+  opacity: 1;
+}
+
+.swiper-pagination-bullet-active {
+  background-color: #fde047 !important; /* brighter yellow when active */
 }

@@ -169,9 +169,9 @@ const Navbar = () => {
       className={`font-poppins w-full top-0 left-0 z-50 transition-all duration-300 ${
         isHome
           ? isSticky
-            ? "sticky top-0 z-10 bg-[#18181b] shadow-md"
+            ? "sticky top-0 z-10 bg-[#0c0c0c] shadow-md"
             : "absolute bg-transparent"
-          : "sticky top-0 z-10 bg-[#18181b] shadow-md"
+          : "sticky top-0 z-10 bg-[#0c0c0c] shadow-md"
       }`}
     >
       <div className="w-11/12 mx-auto flex justify-between items-center py-3">
