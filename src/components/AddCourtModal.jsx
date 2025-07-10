@@ -1,16 +1,30 @@
 import { useForm } from "react-hook-form";
-import { toast } from "react-hot-toast";
 import useAxiosSecure from "../hooks/useAxiosSecure";
 import { v4 as uuidv4 } from "uuid";
 import { useEffect } from "react";
+import Swal from "sweetalert2";
 
 const surfaceOptions = ["Grass", "Clay", "Hard", "Synthetic", "Wooden"];
 const courtStatuses = ["Available", "Maintenance", "Unavailable"];
 const amenitiesList = [
-  "Changing Room", "Washroom", "Parking", "Drinking Water", "Lighting",
-  "Equipment Available (Racquets, Balls)", "Seating Area", "First Aid Kit"
+  "Changing Room",
+  "Washroom",
+  "Parking",
+  "Drinking Water",
+  "Lighting",
+  "Equipment Available (Racquets, Balls)",
+  "Seating Area",
+  "First Aid Kit",
 ];
-const weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+const weekdays = [
+  "Sunday",
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+];
 
 const AddCourtModal = ({ isOpen, closeModal, refetch }) => {
   const axiosSecure = useAxiosSecure();
@@ -49,13 +63,24 @@ const AddCourtModal = ({ isOpen, closeModal, refetch }) => {
 
     try {
       await axiosSecure.post("/courts", courtInfo);
-      toast.success("Court added successfully!");
+
+      Swal.fire({
+        icon: "success",
+        title: "Success!",
+        text: "Court added successfully.",
+        showConfirmButton: false,
+        timer: 2000,
+      });
+
       reset();
       closeModal();
       refetch();
     } catch (err) {
-      console.error(err);
-      toast.error("Failed to add court");
+      Swal.fire({
+        icon: "error",
+        title: "Failed!",
+        text: `Could not add court- ${err}`,
+      });
     }
   };
 
@@ -72,8 +97,12 @@ const AddCourtModal = ({ isOpen, closeModal, refetch }) => {
         <dialog open className="modal modal-open">
           <div className="modal-box max-w-2xl bg-gradient-to-tr from-black via-neutral-900 to-zinc-800 shadow-xl rounded-lg text-white">
             <div className="flex justify-between items-center mb-4">
-              <h3 className="font-bold text-2xl text-gray-200">Add New Court</h3>
-              <button onClick={closeModal} className="btn btn-sm btn-circle btn-ghost text-gray-300">✕</button>
+              <h3 className="font-bold text-2xl text-gray-200">
+                Add New Court
+              </h3>
+              <button onClick={closeModal} className="btn hover:bg-primary">
+                ✕
+              </button>
             </div>
 
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
@@ -81,27 +110,47 @@ const AddCourtModal = ({ isOpen, closeModal, refetch }) => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <label className={labelClass}>Court Name</label>
-                  <input {...register("name", { required: true })} placeholder="Enter court name" className={inputClass} />
-                  {errors.name && <p className="text-red-500 text-sm">Required</p>}
+                  <input
+                    {...register("name", { required: true })}
+                    placeholder="Enter court name"
+                    className={inputClass}
+                  />
+                  {errors.name && (
+                    <p className="text-red-500 text-sm">Required</p>
+                  )}
                 </div>
                 <div>
                   <label className={labelClass}>Image URL</label>
-                  <input type="url" {...register("image", { required: true })} placeholder="https://example.com/image.jpg" className={inputClass} />
-                  {errors.image && <p className="text-red-500 text-sm">Required</p>}
+                  <input
+                    type="url"
+                    {...register("image", { required: true })}
+                    placeholder="https://example.com/image.jpg"
+                    className={inputClass}
+                  />
+                  {errors.image && (
+                    <p className="text-red-500 text-sm">Required</p>
+                  )}
                 </div>
               </div>
 
               {/* Description */}
               <div>
                 <label className={labelClass}>Court Description</label>
-                <textarea {...register("description", { required: true })} placeholder="Describe the court" className={`${inputClass} textarea`} />
+                <textarea
+                  {...register("description", { required: true })}
+                  placeholder="Describe the court"
+                  className={`${inputClass} textarea`}
+                />
               </div>
 
               {/* Type & Surface */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <label className={labelClass}>Court Type</label>
-                  <select {...register("type", { required: true })} className={selectClass}>
+                  <select
+                    {...register("type", { required: true })}
+                    className={selectClass}
+                  >
                     <option value="">Select Type</option>
                     <option>Tennis</option>
                     <option>Badminton</option>
@@ -113,7 +162,10 @@ const AddCourtModal = ({ isOpen, closeModal, refetch }) => {
                 </div>
                 <div>
                   <label className={labelClass}>Surface Type</label>
-                  <select {...register("surface", { required: true })} className={selectClass}>
+                  <select
+                    {...register("surface", { required: true })}
+                    className={selectClass}
+                  >
                     <option value="">Select Surface</option>
                     {surfaceOptions.map((option, i) => (
                       <option key={i}>{option}</option>
@@ -126,7 +178,10 @@ const AddCourtModal = ({ isOpen, closeModal, refetch }) => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <label className={labelClass}>Indoor/Outdoor</label>
-                  <select {...register("environment", { required: true })} className={selectClass}>
+                  <select
+                    {...register("environment", { required: true })}
+                    className={selectClass}
+                  >
                     <option value="">Select</option>
                     <option>Indoor</option>
                     <option>Outdoor</option>
@@ -134,7 +189,12 @@ const AddCourtModal = ({ isOpen, closeModal, refetch }) => {
                 </div>
                 <div>
                   <label className={labelClass}>Capacity</label>
-                  <input type="number" {...register("capacity", { required: true })} placeholder="Number of players" className={inputClass} />
+                  <input
+                    type="number"
+                    {...register("capacity", { required: true })}
+                    placeholder="Number of players"
+                    className={inputClass}
+                  />
                 </div>
               </div>
 
@@ -142,21 +202,39 @@ const AddCourtModal = ({ isOpen, closeModal, refetch }) => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <label className={labelClass}>Slot Duration</label>
-                  <input {...register("slotDuration", { required: true })} placeholder="e.g. 1 Hour" className={inputClass} />
+                  <input
+                    {...register("slotDuration", { required: true })}
+                    placeholder="e.g. 1 Hour"
+                    className={inputClass}
+                  />
                 </div>
                 <div>
-                  <label className={labelClass}>Slot Times (comma separated)</label>
-                  <input {...register("slots", { required: true })} placeholder="9AM-10AM, 11AM-12PM" className={inputClass} />
+                  <label className={labelClass}>
+                    Slot Times (comma separated)
+                  </label>
+                  <input
+                    {...register("slots", { required: true })}
+                    placeholder="9AM-10AM, 11AM-12PM"
+                    className={inputClass}
+                  />
                 </div>
               </div>
 
               {/* Closed Days */}
               <div>
                 <label className={labelClass}>Closed Days</label>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-2 mt-4">
                   {weekdays.map((day, i) => (
-                    <label key={i} className="flex items-center gap-2 text-sm text-gray-300">
-                      <input type="checkbox" value={day} {...register("closedDays")} className="checkbox checkbox-sm checkbox-primary" />
+                    <label
+                      key={i}
+                      className="flex items-center gap-2 text-sm text-gray-300"
+                    >
+                      <input
+                        type="checkbox"
+                        value={day}
+                        {...register("closedDays")}
+                        className="checkbox checkbox-sm checkbox-primary"
+                      />
                       {day}
                     </label>
                   ))}
@@ -166,10 +244,18 @@ const AddCourtModal = ({ isOpen, closeModal, refetch }) => {
               {/* Amenities */}
               <div>
                 <label className={labelClass}>Amenities / Facilities</label>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mt-4">
                   {amenitiesList.map((amenity, i) => (
-                    <label key={i} className="flex items-center gap-2 text-sm text-gray-300">
-                      <input type="checkbox" value={amenity} {...register("amenities")} className="checkbox checkbox-sm checkbox-primary" />
+                    <label
+                      key={i}
+                      className="flex items-center gap-2 text-sm text-gray-300"
+                    >
+                      <input
+                        type="checkbox"
+                        value={amenity}
+                        {...register("amenities")}
+                        className="checkbox checkbox-sm checkbox-primary"
+                      />
                       {amenity}
                     </label>
                   ))}
@@ -180,7 +266,10 @@ const AddCourtModal = ({ isOpen, closeModal, refetch }) => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <label className={labelClass}>Status</label>
-                  <select {...register("status", { required: true })} className={selectClass}>
+                  <select
+                    {...register("status", { required: true })}
+                    className={selectClass}
+                  >
                     <option value="">Select Status</option>
                     {courtStatuses.map((status, i) => (
                       <option key={i}>{status}</option>
@@ -189,19 +278,33 @@ const AddCourtModal = ({ isOpen, closeModal, refetch }) => {
                 </div>
                 <div>
                   <label className={labelClass}>Price per Session</label>
-                  <input type="number" {...register("price", { required: true })} placeholder="e.g. 10" className={inputClass} />
+                  <input
+                    type="number"
+                    {...register("price", { required: true })}
+                    placeholder="e.g. 10"
+                    className={inputClass}
+                  />
                 </div>
               </div>
 
               {/* Court ID */}
               <div>
                 <label className={labelClass}>Court ID (Auto-generated)</label>
-                <input type="text" {...register("courtId")} readOnly className="input input-bordered w-full bg-gray-700 text-white border-gray-600 cursor-not-allowed" />
+                <input
+                  type="text"
+                  {...register("courtId")}
+                  readOnly
+                  className="input input-bordered w-full bg-gray-700 text-white border-gray-600 cursor-not-allowed"
+                />
               </div>
 
               {/* Actions */}
               <div className="modal-action">
-                <button type="button" onClick={closeModal} className="btn btn-ghost text-white border border-gray-500">
+                <button
+                  type="button"
+                  onClick={closeModal}
+                  className="btn text-black"
+                >
                   Cancel
                 </button>
                 <button type="submit" className="btn btn-primary">
