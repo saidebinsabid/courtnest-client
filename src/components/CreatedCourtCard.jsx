@@ -1,8 +1,12 @@
 import React from "react";
 import { FaTrash, FaEdit } from "react-icons/fa";
+import { MdOutlineSportsScore } from "react-icons/md";
+import { GiTennisCourt } from "react-icons/gi";
+import { MdOutlineNaturePeople, MdAccessTime } from "react-icons/md";
+import { HiUsers } from "react-icons/hi";
+import { MdEventBusy, MdCheckCircle } from "react-icons/md";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../hooks/useAxiosSecure";
-
 
 const CreatedCourtCard = ({ court, refetch, setEditingCourt }) => {
   const axiosSecure = useAxiosSecure();
@@ -28,32 +32,106 @@ const CreatedCourtCard = ({ court, refetch, setEditingCourt }) => {
     });
   };
 
+  const DetailItem = ({ label, value }) => (
+    <div>
+      <p className="text-gray-500 text-xs">{label}</p>
+      <p className="font-medium">{value}</p>
+    </div>
+  );
+
   return (
-    <div className="bg-white shadow-md rounded-xl overflow-hidden border relative">
-      <img src={court.image} alt={court.type} className="w-full h-48 object-cover" />
-      <div className="p-4 space-y-2">
-        <h3 className="text-xl font-semibold capitalize">{court.type}</h3>
-        <p className="text-sm font-medium">Price/Session: ${court.price}</p>
-        <div className="text-sm">
-          <span className="font-semibold">Slots:</span>
-          <ul className="list-disc pl-5">
-            {court.slots?.map((slot, i) => (
-              <li key={i}>{slot}</li>
-            ))}
-          </ul>
+    <div className="bg-base-200 rounded-xl shadow-sm hover:shadow-md border border-base-300 transition-all duration-300">
+      {/* Image */}
+      <div className="relative">
+        <img
+          src={court.image}
+          alt={court.type}
+          className="w-full h-48 object-cover rounded-t-xl"
+        />
+        <div className="absolute top-0 left-0 px-3 py-1 text-xs font-semibold bg-[#facc15] text-black rounded-tr-full uppercase tracking-wide shadow">
+          {court.type}
         </div>
-        <div className="flex justify-between mt-3">
+      </div>
+
+      {/* Content */}
+      <div className="p-5 text-black space-y-4">
+        {/* Court Title & Description */}
+        <div>
+          <h3 className="text-xl font-bold">{court.name}</h3>
+          <p className="text-sm text-gray-600 mt-1">{court.description}</p>
+        </div>
+
+        {/* Inline Info Grid */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 text-sm">
+          <DetailItem label="Surface" value={court.surface} />
+          <DetailItem label="Environment" value={court.environment} />
+          <DetailItem label="Capacity" value={`${court.capacity} players`} />
+          <DetailItem label="Slot" value={court.slotDuration} />
+          <DetailItem label="Price" value={`$${court.price}`} />
+        </div>
+
+        {/* Slots */}
+        {court.slots?.length > 0 && (
+          <div>
+            <h4 className="text-sm font-semibold mb-1">Available Slots</h4>
+            <div className="flex flex-wrap gap-2">
+              {court.slots.map((slot, i) => (
+                <span
+                  key={i}
+                  className="px-2 py-1 text-xs bg-yellow-100 text-yellow-800 rounded"
+                >
+                  {slot}
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Closed Days */}
+        {court.closedDays?.length > 0 && (
+          <div>
+            <h4 className="text-sm font-semibold mb-1">Closed Days</h4>
+            <div className="flex flex-wrap gap-2">
+              {court.closedDays.map((day, i) => (
+                <span key={i} className="px-2 py-1 text-xs bg-base-300 rounded">
+                  {day}
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Amenities */}
+        {court.amenities?.length > 0 && (
+          <div>
+            <h4 className="text-sm font-semibold mb-1">Amenities</h4>
+            <div className="flex flex-wrap gap-2">
+              {court.amenities.map((a, i) => (
+                <span
+                  key={i}
+                  className="px-2 py-1 text-xs bg-gray-100 text-gray-800 rounded"
+                >
+                  {a}
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Actions */}
+        <div className="flex justify-between pt-4 border-t border-base-300">
           <button
-  onClick={() => setEditingCourt(court)}
-  className="text-blue-600 hover:text-blue-800 flex items-center gap-1"
->
-  <FaEdit /> Update
-</button>
+            onClick={() => setEditingCourt(court)}
+            className="text-sm text-black hover:text-white bg-[#facc15] hover:bg-yellow-500 font-medium px-4 py-1.5 rounded-md flex items-center gap-1 transition"
+          >
+            <FaEdit className="text-sm" /> Update
+          </button>
+
           <button
             onClick={() => handleDelete(court._id)}
-            className="text-red-600 hover:text-red-800 flex items-center gap-1"
+            className="text-sm text-white bg-red-500 hover:bg-red-600 font-medium px-4 py-1.5 rounded-md flex items-center gap-1 transition"
           >
-            <FaTrash /> Delete
+            <FaTrash className="text-sm" /> Delete
           </button>
         </div>
       </div>

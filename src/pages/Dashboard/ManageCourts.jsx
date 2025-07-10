@@ -14,7 +14,7 @@ const ManageCourts = () => {
   const isUpdateModalOpen = Boolean(editingCourt);
   const closeUpdateModal = () => setEditingCourt(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 8;
+  const itemsPerPage = 6;
 
   const axiosSecure = useAxiosSecure();
   const {
@@ -46,7 +46,7 @@ const ManageCourts = () => {
   return (
     <div className="w-11/12 mx-auto py-16">
       {/* Top Bar */}
-      <div className="flex flex-col gap-4 md:flex-row md:justify-between">
+      <div className="flex flex-col gap-4 md:flex-row md:justify-between md:items-center bg-base-300 px-3 py-3 rounded shadow-lg">
         <div className="flex-1">
           <h2 className="text-xl font-semibold">Show {courts.length} Courts</h2>
         </div>
@@ -98,7 +98,7 @@ const ManageCourts = () => {
           </p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
           {courts
             .slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)
             .map((court) => (

@@ -106,7 +106,7 @@ const Facilities = () => {
         >
           {facilities.map((item, index) => (
             <SwiperSlide key={index}>
-              <div className="rounded-xl shadow-lg text-center p-6 h-64 flex flex-col justify-center items-center transition-transform hover:scale-105 duration-300">
+              <div className="rounded-xl bg-base-200 shadow-lg text-center p-6 h-64 flex flex-col justify-center items-center transition-transform hover:scale-105 duration-300">
                 <div className="border border-primary p-2">{item.icon}</div>
                 <h3 className="text-xl font-semibold mt-4 mb-2">
                   {item.title}
