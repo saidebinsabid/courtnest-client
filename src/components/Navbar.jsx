@@ -51,7 +51,11 @@ const Navbar = () => {
         </NavLink>
       </li>
       <li>
-        <NavLink>Courts</NavLink>
+        <NavLink to='/court'
+        className={({ isActive }) =>
+            isActive ? "font-semibold text-primary border-b-2" : "text-white"
+          }
+        >Courts</NavLink>
       </li>
       <li>
         <NavLink>About</NavLink>
@@ -91,6 +95,7 @@ const Navbar = () => {
       </li>
       <li>
         <NavLink
+        to='/court'
           className={({ isActive }) =>
             isActive
               ? "text-sm flex items-center gap-2"

@@ -50,7 +50,7 @@ const ManageCourts = () => {
         <div className="flex-1">
           <h2 className="text-xl font-semibold">Show {courts.length} Courts</h2>
         </div>
-        <div className="flex-1/2">
+        <div className="flex-1/3">
           <select
             value={selectedCategory}
             onChange={(e) => {

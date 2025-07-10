@@ -10,6 +10,7 @@ import DashboardLayout from "../layouts/DashboardLayout";
 import DashboardHome from "../pages/Dashboard/DashboardHome";
 import AdminRoute from "../routes/AdminRoute";
 import ManageCourts from "../pages/Dashboard/ManageCourts";
+import CourtPage from "../pages/CourtPage";
 
 
 export const router = createBrowserRouter([
@@ -20,6 +21,10 @@ export const router = createBrowserRouter([
       {
         index: true,
         element: <Home></Home>,
+      },
+      {
+        path: '/court',
+        element: <CourtPage></CourtPage>,
       },
     ],
   },
