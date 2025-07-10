@@ -9,9 +9,12 @@ import PrivateRoute from "../provider/PrivateRoute";
 import DashboardLayout from "../layouts/DashboardLayout";
 import DashboardHome from "../pages/Dashboard/DashboardHome";
 import AdminRoute from "../routes/AdminRoute";
+import MemberRoute from "../routes/MemberRoute";
+import UserRoute from "../routes/UserRoute";
 import ManageCourts from "../pages/Dashboard/ManageCourts";
 import CourtPage from "../pages/CourtPage";
 import ManageBookings from "../pages/Dashboard/ManageBookings";
+import PendingBookings from "../pages/Dashboard/PendingBookings";
 
 
 export const router = createBrowserRouter([
@@ -51,6 +54,17 @@ export const router = createBrowserRouter([
         index:true,
         element: <DashboardHome></DashboardHome>
       },
+      // User Routes
+      {
+        path: 'user/pending-booking',
+        element:<UserRoute><PendingBookings></PendingBookings></UserRoute>
+      },
+      // Member Routes
+      {
+        path: 'member/pending-booking',
+        element:<MemberRoute><PendingBookings></PendingBookings></MemberRoute>
+      },
+      // Admin Routes
       {
         path: 'manage-booking',
         element:<AdminRoute><ManageBookings></ManageBookings></AdminRoute>

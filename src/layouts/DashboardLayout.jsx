@@ -29,7 +29,7 @@ const DashboardLayout = () => {
         </NavLink>
       </li>
       <li>
-        <NavLink to="">
+        <NavLink to="/dashboard/user/pending-booking">
           <FaClock className="mr-2" /> Pending Bookings
         </NavLink>
       </li>
@@ -51,7 +51,7 @@ const DashboardLayout = () => {
         </NavLink>
       </li>
       <li>
-        <NavLink to="">
+        <NavLink to="/dashboard/member/pending-booking">
           <FaClock className="mr-2" /> Pending Bookings
         </NavLink>
       </li>
