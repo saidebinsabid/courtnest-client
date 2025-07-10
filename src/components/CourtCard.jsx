@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   MdSportsTennis,
   MdSportsSoccer,
@@ -9,9 +9,18 @@ import {
 import { GiShuttlecock } from "react-icons/gi";
 import { FaCalendarAlt, FaDollarSign } from "react-icons/fa";
 import { FaArrowRightFromBracket } from "react-icons/fa6";
+import useAuth from "../hooks/useAuth";
+import BookingModalCourt from "./BookingModalCourt";
 
 const CourtCard = ({ court }) => {
   const { name, image, type, slots = [], price } = court;
+    const { user } = useAuth();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleBookingClick = () => {
+    if (!user) return window.location.href = "/auth/login";
+    setIsModalOpen(true);
+  };
 
   const getCourtIcon = (type) => {
     switch (type.toLowerCase()) {
@@ -74,9 +83,21 @@ const CourtCard = ({ court }) => {
           Price: {price} per session
         </p>
         {/* Book Now Button */}
-        <button className="mt-auto font-roboto w-full border border-primary text-black hover:text-white hover:bg-primary/90 flex items-center justify-center gap-2 py-2 rounded">
-          Book Now <FaArrowRightFromBracket />
-        </button>
+        <button
+        onClick={handleBookingClick}
+        className="mt-auto font-roboto w-full bg-primary text-black hover:text-white hover:bg-primary/90 flex items-center justify-center gap-2 py-2 rounded"
+      >
+        Book Now <FaArrowRightFromBracket />
+      </button>
+
+      {/* Booking Modal */}
+      {isModalOpen && (
+        <BookingModalCourt
+          isOpen={isModalOpen}
+          setIsOpen={setIsModalOpen}
+          court={court}
+        />
+      )}
       </div>
     </div>
   );
