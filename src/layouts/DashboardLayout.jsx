@@ -95,7 +95,7 @@ const DashboardLayout = () => {
         </NavLink>
       </li>
       <li>
-        <NavLink to="">
+        <NavLink to="/dashboard/manage-booking">
           <FaClipboardCheck className="mr-2" /> Manage Bookings
         </NavLink>
       </li>

@@ -11,6 +11,7 @@ import DashboardHome from "../pages/Dashboard/DashboardHome";
 import AdminRoute from "../routes/AdminRoute";
 import ManageCourts from "../pages/Dashboard/ManageCourts";
 import CourtPage from "../pages/CourtPage";
+import ManageBookings from "../pages/Dashboard/ManageBookings";
 
 
 export const router = createBrowserRouter([
@@ -51,9 +52,13 @@ export const router = createBrowserRouter([
         element: <DashboardHome></DashboardHome>
       },
       {
+        path: 'manage-booking',
+        element:<AdminRoute><ManageBookings></ManageBookings></AdminRoute>
+      },
+      {
         path: 'manage-court',
         element:<AdminRoute><ManageCourts></ManageCourts></AdminRoute>
-      }
+      },
     ]
 
   },
