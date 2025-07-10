@@ -55,10 +55,28 @@ const PendingBookings = () => {
   if (isLoading) return <Loading />;
 
   return (
-    <div className="w-11/12 mx-auto py-10">
-      <h2 className="text-2xl font-semibold mb-6">My Pending Bookings</h2>
+  <div className="w-11/12 mx-auto py-10">
+    <h2 className="text-2xl font-semibold mb-6">My Pending Bookings</h2>
+
+    {bookings.length === 0 ? (
+      <div className="flex flex-col items-center justify-center p-6 bg-yellow-50 border border-yellow-200 rounded-lg shadow-md text-yellow-800">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="h-16 w-16 mb-4 text-yellow-500"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        <p className="text-lg font-medium">You have no court bookings right now.</p>
+        <p className="text-sm text-yellow-700 mt-1">Once you book a court, it will show up here.</p>
+      </div>
+    ) : (
       <PendingBookingTable bookings={bookings} onCancel={handleCancel} />
-    </div>
+    )}
+  </div>
+
   );
 };
 

@@ -24,7 +24,7 @@ const DashboardLayout = () => {
         User Panel
       </li>
       <li>
-        <NavLink to="">
+        <NavLink to="/dashboard/user/profile">
           <FaUser className="mr-2" /> My Profile
         </NavLink>
       </li>
@@ -46,7 +46,7 @@ const DashboardLayout = () => {
         Member Panel
       </li>
       <li>
-        <NavLink to="">
+        <NavLink to="/dashboard/member/profile">
           <FaUser className="mr-2" /> My Profile
         </NavLink>
       </li>

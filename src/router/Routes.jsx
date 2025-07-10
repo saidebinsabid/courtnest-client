@@ -15,6 +15,8 @@ import ManageCourts from "../pages/Dashboard/ManageCourts";
 import CourtPage from "../pages/CourtPage";
 import ManageBookings from "../pages/Dashboard/ManageBookings";
 import PendingBookings from "../pages/Dashboard/PendingBookings";
+import UserProfile from "../pages/Dashboard/UserProfile";
+import MemberProfile from "../pages/Dashboard/MemberProfile";
 
 
 export const router = createBrowserRouter([
@@ -56,10 +58,18 @@ export const router = createBrowserRouter([
       },
       // User Routes
       {
+        path: 'user/profile',
+        element:<UserRoute><UserProfile></UserProfile></UserRoute>
+      },
+      {
         path: 'user/pending-booking',
         element:<UserRoute><PendingBookings></PendingBookings></UserRoute>
       },
       // Member Routes
+      {
+        path: 'member/profile',
+        element:<MemberRoute><MemberProfile></MemberProfile></MemberRoute>
+      },
       {
         path: 'member/pending-booking',
         element:<MemberRoute><PendingBookings></PendingBookings></MemberRoute>
