@@ -1,27 +1,48 @@
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import useAxiosSecure from "../hooks/useAxiosSecure";
+import { v4 as uuidv4 } from "uuid";
+import { useEffect } from "react";
+
+const surfaceOptions = ["Grass", "Clay", "Hard", "Synthetic", "Wooden"];
+const courtStatuses = ["Available", "Maintenance", "Unavailable"];
+const amenitiesList = [
+  "Changing Room", "Washroom", "Parking", "Drinking Water", "Lighting",
+  "Equipment Available (Racquets, Balls)", "Seating Area", "First Aid Kit"
+];
+const weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
 const AddCourtModal = ({ isOpen, closeModal, refetch }) => {
   const axiosSecure = useAxiosSecure();
-
   const {
     register,
     handleSubmit,
     reset,
+    setValue,
     formState: { errors },
   } = useForm();
 
-  const onSubmit = async (data) => {
-    if (!data.slots || data.slots.length === 0) {
-      toast.error("Please provide at least one slot time");
-      return;
+  useEffect(() => {
+    if (isOpen) {
+      setValue("courtId", uuidv4());
     }
+  }, [isOpen, setValue]);
 
+  const onSubmit = async (data) => {
     const courtInfo = {
       image: data.image,
+      name: data.name,
+      description: data.description,
       type: data.type,
+      courtId: data.courtId,
+      surface: data.surface,
+      environment: data.environment,
+      capacity: parseInt(data.capacity),
+      slotDuration: data.slotDuration,
       slots: data.slots.split(",").map((s) => s.trim()),
+      closedDays: data.closedDays || [],
+      status: data.status,
+      amenities: data.amenities || [],
       price: parseFloat(data.price),
       created_at: new Date(),
     };
@@ -38,68 +59,149 @@ const AddCourtModal = ({ isOpen, closeModal, refetch }) => {
     }
   };
 
+  // Reusable classes
+  const inputClass =
+    "input input-bordered w-full bg-neutral-800 text-white border-gray-600 placeholder:text-gray-400 focus:border-primary focus:ring-2 focus:ring-primary";
+  const selectClass =
+    "select select-bordered w-full bg-neutral-800 text-white border-gray-600 focus:border-primary focus:ring-2 focus:ring-primary";
+  const labelClass = "text-gray-300 font-medium";
+
   return (
     <>
       {isOpen && (
-        <dialog open className="modal modal-bottom sm:modal-middle">
-          <div className="modal-box w-full max-w-xl">
+        <dialog open className="modal modal-open">
+          <div className="modal-box max-w-2xl bg-gradient-to-tr from-black via-neutral-900 to-zinc-800 shadow-xl rounded-lg text-white">
             <div className="flex justify-between items-center mb-4">
-              <h3 className="font-bold text-lg">Add New Court</h3>
-              <button onClick={closeModal} className="btn btn-sm btn-circle btn-ghost">
-                ✕
-              </button>
+              <h3 className="font-bold text-2xl text-gray-200">Add New Court</h3>
+              <button onClick={closeModal} className="btn btn-sm btn-circle btn-ghost text-gray-300">✕</button>
             </div>
 
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-              <div>
-                <label className="block mb-1 font-medium">Court Image URL</label>
-                <input
-                  type="url"
-                  {...register("image", { required: true })}
-                  placeholder="https://example.com/image.jpg"
-                  className="input input-bordered w-full"
-                />
-                {errors.image && <p className="text-red-500 text-sm">Image is required</p>}
+              {/* Court Name and Image */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className={labelClass}>Court Name</label>
+                  <input {...register("name", { required: true })} placeholder="Enter court name" className={inputClass} />
+                  {errors.name && <p className="text-red-500 text-sm">Required</p>}
+                </div>
+                <div>
+                  <label className={labelClass}>Image URL</label>
+                  <input type="url" {...register("image", { required: true })} placeholder="https://example.com/image.jpg" className={inputClass} />
+                  {errors.image && <p className="text-red-500 text-sm">Required</p>}
+                </div>
               </div>
 
+              {/* Description */}
               <div>
-                <label className="block mb-1 font-medium">Court Type</label>
-                <select {...register("type", { required: true })} className="select select-bordered w-full">
-                  <option value="">Select Type</option>
-                  <option value="Tennis">Tennis</option>
-                  <option value="Badminton">Badminton</option>
-                  <option value="Football">Football</option>
-                  <option value="Cricket">Cricket</option>
-                  <option value="Hockey">Hockey</option>
-                  <option value="Basketball">Basketball</option>
-                </select>
-                {errors.type && <p className="text-red-500 text-sm">Type is required</p>}
+                <label className={labelClass}>Court Description</label>
+                <textarea {...register("description", { required: true })} placeholder="Describe the court" className={`${inputClass} textarea`} />
               </div>
 
-              <div>
-                <label className="block mb-1 font-medium">Slot Times (comma separated)</label>
-                <input
-                  type="text"
-                  {...register("slots", { required: true })}
-                  placeholder="e.g. 9AM-10AM, 11AM-12PM"
-                  className="input input-bordered w-full"
-                />
-                {errors.slots && <p className="text-red-500 text-sm">Slots are required</p>}
+              {/* Type & Surface */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className={labelClass}>Court Type</label>
+                  <select {...register("type", { required: true })} className={selectClass}>
+                    <option value="">Select Type</option>
+                    <option>Tennis</option>
+                    <option>Badminton</option>
+                    <option>Football</option>
+                    <option>Cricket</option>
+                    <option>Hockey</option>
+                    <option>Basketball</option>
+                  </select>
+                </div>
+                <div>
+                  <label className={labelClass}>Surface Type</label>
+                  <select {...register("surface", { required: true })} className={selectClass}>
+                    <option value="">Select Surface</option>
+                    {surfaceOptions.map((option, i) => (
+                      <option key={i}>{option}</option>
+                    ))}
+                  </select>
+                </div>
               </div>
 
-              <div>
-                <label className="block mb-1 font-medium">Price per Session</label>
-                <input
-                  type="number"
-                  {...register("price", { required: true })}
-                  placeholder="$25"
-                  className="input input-bordered w-full"
-                />
-                {errors.price && <p className="text-red-500 text-sm">Price is required</p>}
+              {/* Indoor/Outdoor & Capacity */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className={labelClass}>Indoor/Outdoor</label>
+                  <select {...register("environment", { required: true })} className={selectClass}>
+                    <option value="">Select</option>
+                    <option>Indoor</option>
+                    <option>Outdoor</option>
+                  </select>
+                </div>
+                <div>
+                  <label className={labelClass}>Capacity</label>
+                  <input type="number" {...register("capacity", { required: true })} placeholder="Number of players" className={inputClass} />
+                </div>
               </div>
 
+              {/* Slot Duration & Slot Times */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className={labelClass}>Slot Duration</label>
+                  <input {...register("slotDuration", { required: true })} placeholder="e.g. 1 Hour" className={inputClass} />
+                </div>
+                <div>
+                  <label className={labelClass}>Slot Times (comma separated)</label>
+                  <input {...register("slots", { required: true })} placeholder="9AM-10AM, 11AM-12PM" className={inputClass} />
+                </div>
+              </div>
+
+              {/* Closed Days */}
+              <div>
+                <label className={labelClass}>Closed Days</label>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+                  {weekdays.map((day, i) => (
+                    <label key={i} className="flex items-center gap-2 text-sm text-gray-300">
+                      <input type="checkbox" value={day} {...register("closedDays")} className="checkbox checkbox-sm checkbox-primary" />
+                      {day}
+                    </label>
+                  ))}
+                </div>
+              </div>
+
+              {/* Amenities */}
+              <div>
+                <label className={labelClass}>Amenities / Facilities</label>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                  {amenitiesList.map((amenity, i) => (
+                    <label key={i} className="flex items-center gap-2 text-sm text-gray-300">
+                      <input type="checkbox" value={amenity} {...register("amenities")} className="checkbox checkbox-sm checkbox-primary" />
+                      {amenity}
+                    </label>
+                  ))}
+                </div>
+              </div>
+
+              {/* Status & Price */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className={labelClass}>Status</label>
+                  <select {...register("status", { required: true })} className={selectClass}>
+                    <option value="">Select Status</option>
+                    {courtStatuses.map((status, i) => (
+                      <option key={i}>{status}</option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <label className={labelClass}>Price per Session</label>
+                  <input type="number" {...register("price", { required: true })} placeholder="e.g. 10" className={inputClass} />
+                </div>
+              </div>
+
+              {/* Court ID */}
+              <div>
+                <label className={labelClass}>Court ID (Auto-generated)</label>
+                <input type="text" {...register("courtId")} readOnly className="input input-bordered w-full bg-gray-700 text-white border-gray-600 cursor-not-allowed" />
+              </div>
+
+              {/* Actions */}
               <div className="modal-action">
-                <button type="button" onClick={closeModal} className="btn btn-ghost">
+                <button type="button" onClick={closeModal} className="btn btn-ghost text-white border border-gray-500">
                   Cancel
                 </button>
                 <button type="submit" className="btn btn-primary">
