@@ -1,10 +1,11 @@
 import React from 'react';
+import AdminProfile from './AdminProfile';
 
 const AdminDashboard = () => {
     return (
-        <div>
-            
-        </div>
+        <>
+            <AdminProfile></AdminProfile>
+        </>
     );
 };
 

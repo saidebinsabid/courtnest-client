@@ -90,7 +90,7 @@ const DashboardLayout = () => {
         Admin Panel
       </li>
       <li>
-        <NavLink to="">
+        <NavLink to="/dashboard/admin/profile">
           <FaUserShield className="mr-2" /> Admin Profile
         </NavLink>
       </li>

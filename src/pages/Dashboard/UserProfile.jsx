@@ -3,6 +3,7 @@ import useAxiosSecure from "../../hooks/useAxiosSecure";
 import useAuth from "../../hooks/useAuth";
 import ProfileCard from "../../components/ProfileCard";
 import Loading from "../../components/Loading";
+import { parseMongoDate } from "../../utils/parseMongoDate";
 
 const UserProfile = () => {
   const { user } = useAuth();
@@ -19,15 +20,15 @@ const UserProfile = () => {
 
   if (isLoading) return <Loading></Loading>;
   if (!userInfo) return <Loading></Loading>;
-
+  const registeredAtDate = parseMongoDate(userInfo.registerd_at);
   return (
-    <div className="p-4 md:p-8 min-h-[80vh] bg-base-200 flex justify-center items-center">
+    <div className="w-11/12 mx-auto py-16">
       <ProfileCard
         name={userInfo.name}
         email={userInfo.email}
         photoURL={userInfo.photoURL}
         dateLabel="Registration Date"
-        date={userInfo.registerd_at}
+        date={registeredAtDate}
       />
     </div>
   );

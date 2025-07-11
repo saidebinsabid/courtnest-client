@@ -1,10 +1,11 @@
 import React from 'react';
+import MemberProfile from './MemberProfile';
 
 const MemberDashboard = () => {
     return (
-        <div>
-            <h1>Memver dashboard</h1>
-        </div>
+        <>
+            <MemberProfile></MemberProfile>
+        </>
     );
 };
 

@@ -2,6 +2,16 @@ import React from "react";
 import { motion } from "framer-motion";
 
 const ProfileCard = ({ name, email, photoURL, dateLabel, date }) => {
+  const displayDate =
+    date instanceof Date && !isNaN(date)
+      ? date.toLocaleDateString("en-US", {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+          timeZone: "UTC",
+        })
+      : "Date not available";
+
   return (
     <motion.div
       className="max-w-lg w-full mx-auto bg-white rounded-2xl shadow-2xl p-8 border border-gray-100"
@@ -22,13 +32,7 @@ const ProfileCard = ({ name, email, photoURL, dateLabel, date }) => {
         <p className="text-gray-500 text-sm">{email}</p>
         <div className="mt-4 bg-base-200 px-4 py-2 rounded-md">
           <span className="font-medium text-gray-700">{dateLabel}:</span>{" "}
-          <span className="text-gray-600">
-            {new Date(date).toLocaleDateString("en-US", {
-              year: "numeric",
-              month: "long",
-              day: "numeric",
-            })}
-          </span>
+          <span className="text-gray-600">{displayDate}</span>
         </div>
       </div>
     </motion.div>

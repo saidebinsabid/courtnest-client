@@ -17,6 +17,7 @@ import ManageBookings from "../pages/Dashboard/ManageBookings";
 import PendingBookings from "../pages/Dashboard/PendingBookings";
 import UserProfile from "../pages/Dashboard/UserProfile";
 import MemberProfile from "../pages/Dashboard/MemberProfile";
+import AdminProfile from "../pages/Dashboard/AdminProfile";
 
 
 export const router = createBrowserRouter([
@@ -78,6 +79,10 @@ export const router = createBrowserRouter([
       {
         path: 'manage-booking',
         element:<AdminRoute><ManageBookings></ManageBookings></AdminRoute>
+      },
+      {
+        path: 'admin/profile',
+        element:<AdminRoute><AdminProfile></AdminProfile></AdminRoute>
       },
       {
         path: 'manage-court',
