@@ -32,13 +32,13 @@ const ManageBookings = () => {
     },
   });
 
-  const rejectBookingMutation = useMutation({
-    mutationFn: async (bookingId) => {
-      const res = await axiosSecure.delete(`/bookings/${bookingId}`);
-      return res.data;
-    },
+ const rejectBookingMutation = useMutation({
+  mutationFn: async (bookingId) => {
+    const res = await axiosSecure.patch(`/bookings/reject/${bookingId}`);
+    return res.data;
+  },
     onSuccess: () => {
-      Swal.fire("Deleted!", "Booking has been rejected.", "success");
+      Swal.fire("Rejected!", "Booking has been rejected.", "success");
       queryClient.invalidateQueries(["bookings"]);
     },
     onError: () => {

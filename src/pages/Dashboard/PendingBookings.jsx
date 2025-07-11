@@ -12,14 +12,17 @@ const PendingBookings = () => {
   const axiosSecure = useAxiosSecure();
   const queryClient = useQueryClient();
 
-  const { data: bookings = [], isLoading } = useQuery({
-    queryKey: ["pendingBookings", user?.email],
-    enabled: !!user?.email,
-    queryFn: async () => {
-      const res = await axiosSecure.get(`/bookings?email=${user.email}`);
-      return res.data.filter((booking) => booking.status === "pending");
-    },
-  });
+const { data: bookings = [], isLoading } = useQuery({
+  queryKey: ["userBookings", user?.email],
+  enabled: !!user?.email,
+  queryFn: async () => {
+    const res = await axiosSecure.get(`/bookings?email=${user.email}`);
+    return res.data.filter((booking) =>
+      booking.status === "pending" || booking.status === "rejected"
+    );
+  },
+});
+
 
   const cancelMutation = useMutation({
     mutationFn: async (id) => {
@@ -29,7 +32,7 @@ const PendingBookings = () => {
     onSuccess: () => {
       Swal.fire("Cancelled!", "Booking has been cancelled.", "success");
       queryClient.invalidateQueries(["pendingBookings"]);
-      queryClient.invalidateQueries(["bookings"]); // to refresh admin list also
+      queryClient.invalidateQueries(["bookings"]);
     },
     onError: () => {
       Swal.fire("Error!", "Failed to cancel booking.", "error");
@@ -56,7 +59,7 @@ const PendingBookings = () => {
 
   return (
   <div className="w-11/12 mx-auto py-10">
-    <h2 className="text-2xl font-semibold mb-6">My Pending Bookings</h2>
+    <h2 className="text-2xl font-semibold mb-6"> My Pending & Rejected Bookings</h2>
 
     {bookings.length === 0 ? (
       <div className="flex flex-col items-center justify-center p-6 bg-yellow-50 border border-yellow-200 rounded-lg shadow-md text-yellow-800">

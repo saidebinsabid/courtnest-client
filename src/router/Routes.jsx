@@ -18,6 +18,8 @@ import PendingBookings from "../pages/Dashboard/PendingBookings";
 import UserProfile from "../pages/Dashboard/UserProfile";
 import MemberProfile from "../pages/Dashboard/MemberProfile";
 import AdminProfile from "../pages/Dashboard/AdminProfile";
+import ManageMembers from "../pages/Dashboard/ManageMembers";
+import AllUsers from "../pages/Dashboard/AllUsers";
 
 
 export const router = createBrowserRouter([
@@ -77,12 +79,20 @@ export const router = createBrowserRouter([
       },
       // Admin Routes
       {
+        path: 'admin/profile',
+        element:<AdminRoute><AdminProfile></AdminProfile></AdminRoute>
+      },
+      {
         path: 'manage-booking',
         element:<AdminRoute><ManageBookings></ManageBookings></AdminRoute>
       },
       {
-        path: 'admin/profile',
-        element:<AdminRoute><AdminProfile></AdminProfile></AdminRoute>
+        path: 'manage-user',
+        element:<AdminRoute><ManageMembers></ManageMembers></AdminRoute>
+      },
+      {
+        path: 'all-user',
+        element:<AdminRoute><AllUsers></AllUsers></AdminRoute>
       },
       {
         path: 'manage-court',

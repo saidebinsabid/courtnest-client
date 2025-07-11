@@ -100,12 +100,12 @@ const DashboardLayout = () => {
         </NavLink>
       </li>
       <li>
-        <NavLink to="">
+        <NavLink to="/dashboard/manage-user">
           <FaUsersCog className="mr-2" /> Manage Members
         </NavLink>
       </li>
       <li>
-        <NavLink to="">
+        <NavLink to="/dashboard/all-user">
           <FaUsers className="mr-2" /> All Users
         </NavLink>
       </li>

@@ -45,7 +45,7 @@ console.log("Stats:", stats);
             name={name}
             email={email}
             photoURL={photoURL}
-            dateLabel="Registered At"
+            dateLabel="Issued At"
             date={registeredAtDate}
           />
         </div>
