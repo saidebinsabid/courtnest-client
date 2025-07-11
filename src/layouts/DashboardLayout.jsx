@@ -62,7 +62,7 @@ const DashboardLayout = () => {
       </li>
 
       <li>
-        <NavLink to="">
+        <NavLink to="/dashboard/member/approved-booking">
           <FaCheckCircle className="mr-2" /> Approved Bookings
         </NavLink>
       </li>

@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import UsersTable from "../../components/UsersTable";
+import Loading from "../../components/Loading";
+import { FaUserSlash } from "react-icons/fa";
 
 const AllUsers = () => {
   const axiosSecure = useAxiosSecure();
@@ -33,7 +35,19 @@ const AllUsers = () => {
         />
       </div>
 
-      <UsersTable users={filteredUsers} showDelete={false} />
+      {isLoading ? (
+        <Loading></Loading>
+      ) : filteredUsers.length === 0 ? (
+        <div className="flex flex-col items-center justify-center gap-4 p-6 border rounded-lg shadow-md bg-base-100 text-center">
+          <FaUserSlash className="text-5xl text-gray-400" />
+          <h2 className="text-xl font-semibold text-gray-600">
+            No users found
+          </h2>
+          <p className="text-gray-500">Try adjusting your search term.</p>
+        </div>
+      ) : (
+        <UsersTable users={filteredUsers} showDelete={false} />
+      )}
     </div>
   );
 };

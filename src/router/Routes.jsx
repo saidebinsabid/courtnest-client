@@ -20,6 +20,8 @@ import MemberProfile from "../pages/Dashboard/MemberProfile";
 import AdminProfile from "../pages/Dashboard/AdminProfile";
 import ManageMembers from "../pages/Dashboard/ManageMembers";
 import AllUsers from "../pages/Dashboard/AllUsers";
+import ApprovedBookings from "../pages/Dashboard/ApprovedBookings";
+import Payment from "../pages/Payment";
 
 
 export const router = createBrowserRouter([
@@ -76,6 +78,14 @@ export const router = createBrowserRouter([
       {
         path: 'member/pending-booking',
         element:<MemberRoute><PendingBookings></PendingBookings></MemberRoute>
+      },
+      {
+        path: 'member/approved-booking',
+        element:<MemberRoute><ApprovedBookings></ApprovedBookings></MemberRoute>
+      },
+      {
+        path: 'member/payment/:id',
+        element:<MemberRoute><Payment></Payment></MemberRoute>
       },
       // Admin Routes
       {
