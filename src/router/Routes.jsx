@@ -25,6 +25,8 @@ import Payment from "../pages/Payment";
 import ConfirmedBooking from "../pages/Dashboard/ConfirmedBooking";
 import AdminConfirmedBooking from "../pages/Dashboard/AdminConfirmedBooking";
 import PaymentHistory from "../pages/Dashboard/PaymentHistory";
+import ManageCoupon from "../pages/Dashboard/ManageCoupon";
+import ManageAnnouncement from "../pages/Dashboard/ManageAnnouncement";
 
 
 
@@ -123,6 +125,14 @@ export const router = createBrowserRouter([
       {
         path: 'admin/confirmed-booking',
         element:<AdminRoute><AdminConfirmedBooking></AdminConfirmedBooking></AdminRoute>
+      },
+      {
+        path: 'admin/manage-coupon',
+        element:<AdminRoute><ManageCoupon></ManageCoupon></AdminRoute>
+      },
+      {
+        path: 'admin/manage-announcement',
+        element:<AdminRoute><ManageAnnouncement></ManageAnnouncement></AdminRoute>
       },
     ]
 

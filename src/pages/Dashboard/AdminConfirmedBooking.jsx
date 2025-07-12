@@ -29,8 +29,8 @@ const AdminConfirmedBooking = () => {
 
   return (
     <div className="w-11/12 mx-auto py-10">
-      <h2 className="text-3xl font-bold mb-6 text-center text-primary">
-        All Confirmed Bookings
+      <h2 className="text-3xl font-bold mb-6 text-center">
+        All <span className="text-primary">Confirmed</span> Bookings
       </h2>
 
       {/* Search Bar */}

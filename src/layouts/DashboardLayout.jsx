@@ -115,12 +115,12 @@ const DashboardLayout = () => {
         </NavLink>
       </li>
       <li>
-        <NavLink to="">
+        <NavLink to="/dashboard/admin/manage-coupon">
           <FaTags className="mr-2" /> Manage Coupons
         </NavLink>
       </li>
       <li>
-        <NavLink to="">
+        <NavLink to="/dashboard/admin/manage-announcement">
           <FaBullhorn className="mr-2" /> Make Announcement
         </NavLink>
       </li>

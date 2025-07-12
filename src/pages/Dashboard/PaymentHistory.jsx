@@ -24,7 +24,7 @@ const PaymentHistory = () => {
 
   return (
     <div className="w-11/12 mx-auto py-10">
-      <h2 className="text-3xl font-semibold mb-6">My <span className="text-primary">Payment History</span></h2>
+      <h2 className="text-3xl font-semibold mb-6">My <span className="text-primary">Payment</span> History</h2>
 
       {payments.length > 0 ? (
         <PaymentHistoryTable payments={payments} />

@@ -38,9 +38,9 @@ const AllUsers = () => {
       {isLoading ? (
         <Loading></Loading>
       ) : filteredUsers.length === 0 ? (
-        <div className="flex flex-col items-center justify-center gap-4 p-6 border rounded-lg shadow-md bg-base-100 text-center">
-          <FaUserSlash className="text-5xl text-gray-400" />
-          <h2 className="text-xl font-semibold text-gray-600">
+        <div className="flex flex-col items-center justify-center mt-8 text-center">
+          <FaUserSlash className="text-5xl text-yellow-400" />
+          <h2 className="text-xl font-semibold text-black">
             No users found
           </h2>
           <p className="text-gray-500">Try adjusting your search term.</p>

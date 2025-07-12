@@ -48,3 +48,9 @@
 .swiper-pagination-bullet-active {
   background-color: #fde047 !important; /* brighter yellow when active */
 }
+
+.btn-disabled {
+  pointer-events: none;
+  opacity: 0.6; /* visually disabled */
+}
+

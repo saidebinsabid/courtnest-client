@@ -33,8 +33,8 @@ const PaymentHistoryTable = ({ payments }) => {
                 transition={{ duration: 0.2 }}
               >
                 <td>{offset + idx + 1}</td>
-                <td className="text-primary font-medium">
-                  {item.transactionId}
+                <td className="font-medium">
+                 <span className="bg-green-100 px-2 py-1 rounded-full">{item.transactionId}</span>
                 </td>
                 <td>${item.paymentAmount}</td>
                 <td>{item.paymentMethod}</td>
