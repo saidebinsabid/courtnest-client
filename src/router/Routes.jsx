@@ -24,6 +24,7 @@ import ApprovedBookings from "../pages/Dashboard/ApprovedBookings";
 import Payment from "../pages/Payment";
 
 
+
 export const router = createBrowserRouter([
   {
     path: "/",

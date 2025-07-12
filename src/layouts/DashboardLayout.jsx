@@ -72,7 +72,7 @@ const DashboardLayout = () => {
         </NavLink>
       </li>
       <li>
-        <NavLink to="">
+        <NavLink to="/dashboard/member/payment/:id">
           <FaMoneyBillAlt className="mr-2" /> Payment Page
         </NavLink>
       </li>
