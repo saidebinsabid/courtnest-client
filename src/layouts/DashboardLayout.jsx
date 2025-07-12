@@ -34,7 +34,7 @@ const DashboardLayout = () => {
         </NavLink>
       </li>
       <li>
-        <NavLink to="">
+        <NavLink to="/dashboard/user/update-announcement">
           <FaBullhorn className="mr-2" /> Announcements
         </NavLink>
       </li>
@@ -56,7 +56,7 @@ const DashboardLayout = () => {
         </NavLink>
       </li>
       <li>
-        <NavLink to="">
+        <NavLink to="/dashboard/member/all-announcement">
           <FaBullhorn className="mr-2" /> Announcements
         </NavLink>
       </li>

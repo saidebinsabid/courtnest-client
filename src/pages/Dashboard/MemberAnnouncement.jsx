@@ -5,13 +5,13 @@ import Loading from "../../components/Loading";
 import ShowAnnouncementCard from "../../components/ShowAnnouncementCard";
 
 
-const UserAnnouncement = () => {
+const MemberAnnouncement = () => {
   const axiosSecure = useAxiosSecure();
 
-  const { data: updates = [], isLoading, isFetching } = useQuery({
-    queryKey: ["userAnnouncements", "Update"],
+  const { data: announcements = [], isLoading, isFetching } = useQuery({
+    queryKey: ["allAnnouncements"],
     queryFn: async () => {
-      const res = await axiosSecure.get("/upadte-announcements?category=Update");
+      const res = await axiosSecure.get("/announcements");
       return res.data;
     },
   });
@@ -21,16 +21,16 @@ const UserAnnouncement = () => {
   return (
     <div className="w-11/12 mx-auto py-10">
       <h2 className="text-2xl md:text-3xl font-bold text-center mb-8">
-        Latest Updates
+        All Announcements
       </h2>
 
-      {updates.length === 0 ? (
+      {announcements.length === 0 ? (
         <div className="text-center py-12 text-gray-500">
-          No updates available at this time.
+          No announcements available at this time.
         </div>
       ) : (
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {updates.map((announcement) => (
+          {announcements.map((announcement) => (
             <ShowAnnouncementCard key={announcement._id} announcement={announcement} />
           ))}
         </div>
@@ -39,4 +39,4 @@ const UserAnnouncement = () => {
   );
 };
 
-export default UserAnnouncement;
+export default MemberAnnouncement;

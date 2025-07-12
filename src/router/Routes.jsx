@@ -27,6 +27,8 @@ import AdminConfirmedBooking from "../pages/Dashboard/AdminConfirmedBooking";
 import PaymentHistory from "../pages/Dashboard/PaymentHistory";
 import ManageCoupon from "../pages/Dashboard/ManageCoupon";
 import ManageAnnouncement from "../pages/Dashboard/ManageAnnouncement";
+import UserAnnouncement from "../pages/Dashboard/UserAnnouncement";
+import MemberAnnouncement from "../pages/Dashboard/MemberAnnouncement";
 
 
 
@@ -76,6 +78,10 @@ export const router = createBrowserRouter([
         path: 'user/pending-booking',
         element:<UserRoute><PendingBookings></PendingBookings></UserRoute>
       },
+      {
+        path: 'user/update-announcement',
+        element:<UserRoute><UserAnnouncement></UserAnnouncement></UserRoute>
+      },
       // Member Routes
       {
         path: 'member/profile',
@@ -100,6 +106,10 @@ export const router = createBrowserRouter([
       {
         path: 'member/payment-history',
         element:<MemberRoute><PaymentHistory></PaymentHistory></MemberRoute>
+      },
+      {
+        path: 'member/all-announcement',
+        element:<MemberRoute><MemberAnnouncement></MemberAnnouncement></MemberRoute>
       },
       // Admin Routes
       {
