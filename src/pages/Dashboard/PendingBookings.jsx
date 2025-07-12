@@ -62,7 +62,7 @@ const { data: bookings = [], isLoading } = useQuery({
     <h2 className="text-2xl font-semibold mb-6"> My Pending & Rejected Bookings</h2>
 
     {bookings.length === 0 ? (
-      <div className="flex flex-col items-center justify-center p-6 bg-yellow-50 border border-yellow-200 rounded-lg shadow-md text-yellow-800">
+      <div className="flex flex-col items-center justify-center">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className="h-16 w-16 mb-4 text-yellow-500"

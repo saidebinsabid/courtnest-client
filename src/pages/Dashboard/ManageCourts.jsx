@@ -55,7 +55,7 @@ const ManageCourts = () => {
             value={selectedCategory}
             onChange={(e) => {
               setSelectedCategory(e.target.value);
-              setCurrentPage(1); // 👈 Reset pagination when category changes
+              setCurrentPage(1);
             }}
             className="select border rounded py-2 bg-base-200"
           >

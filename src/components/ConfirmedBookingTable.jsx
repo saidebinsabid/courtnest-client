@@ -1,28 +1,29 @@
-// ApprovedBookingTable.jsx
 import React, { useState } from "react";
-import { motion } from "framer-motion";
 import ReactPaginate from "react-paginate";
+import { motion } from "framer-motion";
 
 const ITEMS_PER_PAGE = 10;
 
-const ApprovedBookingTable = ({ bookings, onCancel, onPay }) => {
+const ConfirmedBookingTable = ({ bookings }) => {
   const [currentPage, setCurrentPage] = useState(0);
   const offset = currentPage * ITEMS_PER_PAGE;
   const currentBookings = bookings.slice(offset, offset + ITEMS_PER_PAGE);
 
   return (
     <div className="w-full">
-      <div className="overflow-x-auto overflow-y-hidden">
+      {/* Scrollable Table */}
+      <div className="overflow-x-auto overflow-y-hidden shadow-lg rounded-lg">
         <table className="table w-full">
           <thead className="bg-gray-100 text-gray-700">
             <tr>
               <th>#</th>
+              <th>User</th>
               <th>Court</th>
+              <th>Type</th>
               <th>Date</th>
               <th>Slots</th>
               <th>Total</th>
               <th>Status</th>
-              <th>Action</th>
             </tr>
           </thead>
           <tbody>
@@ -34,7 +35,9 @@ const ApprovedBookingTable = ({ bookings, onCancel, onPay }) => {
                 transition={{ duration: 0.2 }}
               >
                 <td>{offset + idx + 1}</td>
+                <td>{booking.userName}</td>
                 <td>{booking.courtName}</td>
+                <td>{booking.courtType}</td>
                 <td>{booking.date}</td>
                 <td>
                   {booking.slots.map((slot, i) => (
@@ -45,24 +48,9 @@ const ApprovedBookingTable = ({ bookings, onCancel, onPay }) => {
                 </td>
                 <td>${booking.totalPrice}</td>
                 <td>
-                  <span className="px-2 py-1 rounded text-xs font-medium uppercase bg-green-100 text-green-700">
+                  <span className="bg-green-100 text-green-700 px-2 py-1 text-xs rounded-full capitalize">
                     {booking.status}
                   </span>
-                </td>
-                <td className="flex flex-col gap-2">
-                 <button
-  onClick={() => onPay(booking)}
-  className="btn btn-sm flex items-center gap-1 bg-[#facc15] text-black hover:bg-black hover:text-white transition duration-200 ease-in-out disabled:opacity-50"
->
-  Pay ${booking.totalPrice}
-</button>
-
-                  <button
-                    onClick={() => onCancel(booking._id)}
-                    className="btn btn-sm flex items-center gap-1 bg-black text-white hover:bg-[#facc15] hover:text-black transition duration-200 ease-in-out disabled:opacity-50"
-                  >
-                    Cancel
-                  </button>
                 </td>
               </motion.tr>
             ))}
@@ -70,6 +58,7 @@ const ApprovedBookingTable = ({ bookings, onCancel, onPay }) => {
         </table>
       </div>
 
+      {/* Pagination */}
       <div className="flex justify-center mt-6">
         <ReactPaginate
           pageCount={Math.ceil(bookings.length / ITEMS_PER_PAGE)}
@@ -94,4 +83,4 @@ const ApprovedBookingTable = ({ bookings, onCancel, onPay }) => {
   );
 };
 
-export default ApprovedBookingTable;
+export default ConfirmedBookingTable;

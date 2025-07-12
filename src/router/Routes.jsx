@@ -22,6 +22,9 @@ import ManageMembers from "../pages/Dashboard/ManageMembers";
 import AllUsers from "../pages/Dashboard/AllUsers";
 import ApprovedBookings from "../pages/Dashboard/ApprovedBookings";
 import Payment from "../pages/Payment";
+import ConfirmedBooking from "../pages/Dashboard/ConfirmedBooking";
+import AdminConfirmedBooking from "../pages/Dashboard/AdminConfirmedBooking";
+import PaymentHistory from "../pages/Dashboard/PaymentHistory";
 
 
 
@@ -85,8 +88,16 @@ export const router = createBrowserRouter([
         element:<MemberRoute><ApprovedBookings></ApprovedBookings></MemberRoute>
       },
       {
+        path: 'member/confirmed-booking',
+        element:<MemberRoute><ConfirmedBooking></ConfirmedBooking></MemberRoute>
+      },
+      {
         path: 'member/payment/:id',
         element:<MemberRoute><Payment></Payment></MemberRoute>
+      },
+      {
+        path: 'member/payment-history',
+        element:<MemberRoute><PaymentHistory></PaymentHistory></MemberRoute>
       },
       // Admin Routes
       {
@@ -108,6 +119,10 @@ export const router = createBrowserRouter([
       {
         path: 'manage-court',
         element:<AdminRoute><ManageCourts></ManageCourts></AdminRoute>
+      },
+      {
+        path: 'admin/confirmed-booking',
+        element:<AdminRoute><AdminConfirmedBooking></AdminConfirmedBooking></AdminRoute>
       },
     ]
 

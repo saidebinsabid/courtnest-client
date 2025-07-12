@@ -67,17 +67,12 @@ const DashboardLayout = () => {
         </NavLink>
       </li>
       <li>
-        <NavLink to="">
+        <NavLink to="/dashboard/member/confirmed-booking">
           <FaClipboardCheck className="mr-2" /> Confirmed Bookings
         </NavLink>
       </li>
       <li>
-        <NavLink to="/dashboard/member/payment/:id">
-          <FaMoneyBillAlt className="mr-2" /> Payment Page
-        </NavLink>
-      </li>
-      <li>
-        <NavLink to="">
+        <NavLink to="/dashboard/member/payment-history">
           <FaHistory className="mr-2" /> Payment History
         </NavLink>
       </li>
@@ -115,7 +110,7 @@ const DashboardLayout = () => {
         </NavLink>
       </li>
       <li>
-        <NavLink to="">
+        <NavLink to="/dashboard/admin/confirmed-booking">
           <FaClipboardCheck className="mr-2" /> Confirmed Bookings
         </NavLink>
       </li>

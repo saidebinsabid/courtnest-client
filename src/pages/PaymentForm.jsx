@@ -79,7 +79,7 @@ const PaymentForm = () => {
       }
 
       const res = await axiosSecure.post("/create-payment-intent", {
-        amount: finalAmount,
+        amount: parseInt(finalAmount * 100),
         bookingId: booking._id,
       });
 
@@ -117,7 +117,7 @@ const PaymentForm = () => {
           confirmButtonText: "Go to Confirmed Bookings",
         });
 
-        navigate("/dashboard/member/confirmed-bookings");
+        navigate("/dashboard/member/confirmed-booking");
       }
     } catch (err) {
       console.error("Payment Error:", err);
