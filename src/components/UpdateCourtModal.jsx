@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import useAxiosSecure from "../hooks/useAxiosSecure";
-import { FaTimes } from "react-icons/fa";
 import Swal from "sweetalert2";
+import { GiCrossMark } from "react-icons/gi";
 
 const surfaceOptions = ["Grass", "Clay", "Hard", "Synthetic", "Wooden"];
 const courtStatuses = ["Available", "Maintenance", "Unavailable"];
@@ -128,7 +128,7 @@ const UpdateCourtModal = ({ isOpen, closeModal, court, refetch }) => {
         <div className="flex justify-between items-center mb-4">
           <h3 className="font-bold text-2xl text-gray-200">Update Court</h3>
           <button onClick={closeModal} className="btn hover:bg-primary">
-            <FaTimes />
+            <GiCrossMark />
           </button>
         </div>
 

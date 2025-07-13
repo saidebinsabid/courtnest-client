@@ -6,6 +6,7 @@ import AddCourtModal from "../../components/AddCourtModal";
 import UpdateCourtModal from "../../components/UpdateCourtModal";
 import CreatedCourtCard from "../../components/CreatedCourtCard";
 import Loading from "../../components/Loading";
+import ReactPaginate from "react-paginate";
 
 const ManageCourts = () => {
   const [selectedCategory, setSelectedCategory] = useState("all");
@@ -45,7 +46,6 @@ const ManageCourts = () => {
 
   return (
     <div className="w-11/12 mx-auto py-16">
-      {/* Top Bar */}
       <div className="flex flex-col gap-4 md:flex-row md:justify-between md:items-center bg-base-300 px-3 py-3 rounded shadow-lg">
         <div className="flex-1">
           <h2 className="text-xl font-semibold">Show {courts.length} Courts</h2>
@@ -69,7 +69,7 @@ const ManageCourts = () => {
 
         <div className="">
           <button
-            className="flex items-center gap-2 bg-primary text-white px-4 py-2 rounded hover:bg-primary/90"
+            className="flex items-center gap-2 bg-primary text-black px-4 py-2 rounded hover:bg-primary/90"
             onClick={() => setIsModalOpen(true)}
           >
             <FaPlus /> Add New Court
@@ -77,7 +77,6 @@ const ManageCourts = () => {
         </div>
       </div>
 
-      {/* Add Court Modal */}
       {isModalOpen && (
         <AddCourtModal
           isOpen={isModalOpen}
@@ -86,7 +85,6 @@ const ManageCourts = () => {
         />
       )}
 
-      {/* Courts Grid or No Data Message */}
       {courts.length === 0 ? (
         <div className="flex flex-col items-center justify-center mt-20 p-8 border rounded-lg bg-base-200 text-center">
           <FaExclamationCircle className="text-6xl text-gray-400 mb-4" />
@@ -112,7 +110,6 @@ const ManageCourts = () => {
         </div>
       )}
 
-      {/* Update modal */}
       {isUpdateModalOpen && (
         <UpdateCourtModal
           isOpen={isUpdateModalOpen}
@@ -122,42 +119,26 @@ const ManageCourts = () => {
         />
       )}
 
-      {/* Pagination */}
-      {courts.length > itemsPerPage && (
-        <div className="mt-10 flex justify-center gap-2">
-          <button
-            onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
-            className="btn btn-sm rounded border px-3"
-            disabled={currentPage === 1}
-          >
-            &#8592;
-          </button>
-          {Array.from({ length: Math.ceil(courts.length / itemsPerPage) }).map(
-            (_, idx) => (
-              <button
-                key={idx}
-                onClick={() => setCurrentPage(idx + 1)}
-                className={`btn btn-sm px-3 border rounded ${
-                  currentPage === idx + 1 ? "btn-primary text-white" : ""
-                }`}
-              >
-                {idx + 1}
-              </button>
-            )
-          )}
-          <button
-            onClick={() =>
-              setCurrentPage((prev) =>
-                Math.min(prev + 1, Math.ceil(courts.length / itemsPerPage))
-              )
-            }
-            className="btn btn-sm rounded border px-3"
-            disabled={currentPage === Math.ceil(courts.length / itemsPerPage)}
-          >
-            &#8594;
-          </button>
-        </div>
-      )}
+      <div className="mt-10 flex justify-center items-center">
+        <ReactPaginate
+          pageCount={Math.ceil(courts.length / itemsPerPage)}
+          onPageChange={({ selected }) => setCurrentPage(selected + 1)}
+          forcePage={currentPage - 1}
+          containerClassName="flex gap-2"
+          activeClassName="bg-yellow-400 text-black"
+          pageClassName="border rounded cursor-pointer"
+          pageLinkClassName="block px-4 py-2"
+          previousLabel="←"
+          nextLabel="→"
+          previousClassName="border rounded cursor-pointer"
+          previousLinkClassName="block px-4 py-2"
+          nextClassName="border rounded cursor-pointer"
+          nextLinkClassName="block px-4 py-2"
+          breakLabel="..."
+          breakClassName="cursor-pointer"
+          breakLinkClassName="block px-4 py-2"
+        />
+      </div>
     </div>
   );
 };

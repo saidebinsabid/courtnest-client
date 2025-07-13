@@ -50,7 +50,7 @@ const ManageMembers = () => {
       u.email?.toLowerCase().includes(search.toLowerCase())
   );
 
-  if(isLoading) return <Loading></Loading>
+  if (isLoading) return <Loading></Loading>;
 
   return (
     <div className="w-11/12 mx-auto py-10">
@@ -64,19 +64,20 @@ const ManageMembers = () => {
         />
       </div>
 
-         {isLoading ? (
+      {isLoading ? (
         <p className="text-center">Loading...</p>
       ) : filteredMembers.length === 0 ? (
         <div className="flex flex-col items-center justify-center mt-8 text-center">
           <FaUserSlash className="text-5xl text-yellow-400" />
-          <h2 className="text-xl font-semibold text-black">
-            No members found
-          </h2>
+          <h2 className="text-xl font-semibold text-black">No members found</h2>
           <p className="text-gray-500">Try adjusting your search term.</p>
         </div>
-      ):(
-
-      <UsersTable users={filteredMembers} onDelete={handleDelete} showDelete={true} />
+      ) : (
+        <UsersTable
+          users={filteredMembers}
+          onDelete={handleDelete}
+          showDelete={true}
+        />
       )}
     </div>
   );

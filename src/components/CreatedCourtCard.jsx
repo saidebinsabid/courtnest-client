@@ -1,10 +1,5 @@
 import React from "react";
 import { FaTrash, FaEdit } from "react-icons/fa";
-import { MdOutlineSportsScore } from "react-icons/md";
-import { GiTennisCourt } from "react-icons/gi";
-import { MdOutlineNaturePeople, MdAccessTime } from "react-icons/md";
-import { HiUsers } from "react-icons/hi";
-import { MdEventBusy, MdCheckCircle } from "react-icons/md";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../hooks/useAxiosSecure";
 
@@ -41,7 +36,6 @@ const CreatedCourtCard = ({ court, refetch, setEditingCourt }) => {
 
   return (
     <div className="bg-base-200 rounded-xl shadow-sm hover:shadow-md border border-base-300 transition-all duration-300">
-      {/* Image */}
       <div className="relative">
         <img
           src={court.image}
@@ -53,15 +47,11 @@ const CreatedCourtCard = ({ court, refetch, setEditingCourt }) => {
         </div>
       </div>
 
-      {/* Content */}
       <div className="p-5 text-black space-y-4">
-        {/* Court Title & Description */}
         <div>
           <h3 className="text-xl font-bold">{court.name}</h3>
           <p className="text-sm text-gray-600 mt-1">{court.description}</p>
         </div>
-
-        {/* Inline Info Grid */}
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 text-sm">
           <DetailItem label="Surface" value={court.surface} />
           <DetailItem label="Environment" value={court.environment} />
@@ -70,7 +60,6 @@ const CreatedCourtCard = ({ court, refetch, setEditingCourt }) => {
           <DetailItem label="Price" value={`$${court.price}`} />
         </div>
 
-        {/* Slots */}
         {court.slots?.length > 0 && (
           <div>
             <h4 className="text-sm font-semibold mb-1">Available Slots</h4>
@@ -87,7 +76,6 @@ const CreatedCourtCard = ({ court, refetch, setEditingCourt }) => {
           </div>
         )}
 
-        {/* Closed Days */}
         {court.closedDays?.length > 0 && (
           <div>
             <h4 className="text-sm font-semibold mb-1">Closed Days</h4>
@@ -101,7 +89,6 @@ const CreatedCourtCard = ({ court, refetch, setEditingCourt }) => {
           </div>
         )}
 
-        {/* Amenities */}
         {court.amenities?.length > 0 && (
           <div>
             <h4 className="text-sm font-semibold mb-1">Amenities</h4>
@@ -118,7 +105,6 @@ const CreatedCourtCard = ({ court, refetch, setEditingCourt }) => {
           </div>
         )}
 
-        {/* Actions */}
         <div className="flex justify-between pt-4 border-t border-base-300">
           <button
             onClick={() => setEditingCourt(court)}

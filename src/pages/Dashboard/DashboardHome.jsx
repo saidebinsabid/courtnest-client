@@ -1,10 +1,10 @@
 import React from "react";
 import Loading from "../../components/Loading";
 import useUserRole from "../../hooks/useUserRole";
-import UserDashboard from "./UserDashboard";
-import MemberDashboard from "./MemberDashboard";
 import Forbidden from "../Forbidden";
-import AdminDashboard from "./AdminDashboard";
+import UserProfile from "./UserProfile";
+import MemberProfile from "./MemberProfile";
+import AdminProfile from "./AdminProfile";
 
 const DashboardHome = () => {
   const { role, roleLoading } = useUserRole();
@@ -14,13 +14,13 @@ const DashboardHome = () => {
   }
 
   if (role === "user") {
-    return <UserDashboard></UserDashboard>;
+    return <UserProfile></UserProfile>;
   }
   if (role === "member") {
-    return <MemberDashboard></MemberDashboard>;
+    return <MemberProfile></MemberProfile>;
   }
   if (role === "admin") {
-    return <AdminDashboard></AdminDashboard>;
+    return <AdminProfile></AdminProfile>;
   } else {
     return <Forbidden></Forbidden>;
   }

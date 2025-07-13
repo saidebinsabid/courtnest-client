@@ -93,7 +93,7 @@ const Footer = () => {
             <span className="text-primary text-lg">
               <RiMapPinLine className="text-primary text-lg" />
             </span>
-            <p>Banani, Dhaka, Bangladesh</p>
+            <p>Mirpur DOHS, Dhaka, Bangladesh</p>
           </div>
         </div>
 

@@ -1,8 +1,14 @@
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../hooks/useAxiosSecure";
+import { GiCrossMark } from "react-icons/gi";
 
-const UpdateAnnouncementModal = ({ isOpen, closeModal, announcement, refetch }) => {
+const UpdateAnnouncementModal = ({
+  isOpen,
+  closeModal,
+  announcement,
+  refetch,
+}) => {
   const axiosSecure = useAxiosSecure();
   const [formData, setFormData] = useState({
     title: "",
@@ -11,7 +17,7 @@ const UpdateAnnouncementModal = ({ isOpen, closeModal, announcement, refetch }) 
     priority: "Normal",
     startDate: "",
     endDate: "",
-    photoUrl: ""
+    photoUrl: "",
   });
 
   useEffect(() => {
@@ -23,7 +29,7 @@ const UpdateAnnouncementModal = ({ isOpen, closeModal, announcement, refetch }) 
         priority: announcement.priority || "Normal",
         startDate: (announcement.startDate || "").slice(0, 10),
         endDate: (announcement.endDate || "").slice(0, 10),
-        photoUrl: announcement.photoUrl || ""
+        photoUrl: announcement.photoUrl || "",
       });
     }
   }, [announcement]);
@@ -38,13 +44,13 @@ const UpdateAnnouncementModal = ({ isOpen, closeModal, announcement, refetch }) 
     try {
       await axiosSecure.patch(`/announcements/${announcement._id}`, {
         ...formData,
-        updated_at: new Date()
+        updated_at: new Date(),
       });
       Swal.fire("Success", "Announcement updated", "success");
       closeModal();
       refetch();
     } catch (err) {
-      Swal.fire("Error", "Update failed", "error");
+      Swal.fire("Error", "Update failed", err);
     }
   };
 
@@ -53,18 +59,18 @@ const UpdateAnnouncementModal = ({ isOpen, closeModal, announcement, refetch }) 
   return (
     <dialog open className="modal modal-open">
       <div className="modal-box max-w-2xl bg-base-100 border border-gray-200 rounded-xl relative">
-        {/* Close Button */}
         <button
           onClick={closeModal}
-          className="btn btn-sm btn-circle absolute right-4 top-4 hover:bg-red-200"
+          className="btn btn-sm btn-circle absolute right-4 top-4 hover:bg-yellow-200"
         >
-          ✕
+          <GiCrossMark />
         </button>
 
-        <h3 className="font-bold text-2xl mb-6 text-center">Update Announcement</h3>
+        <h3 className="font-bold text-2xl mb-6 text-center">
+          Update Announcement
+        </h3>
 
         <form onSubmit={handleSubmit} className="space-y-4">
-          {/* Title */}
           <div className="form-control">
             <label className="label font-medium">Title</label>
             <input
@@ -76,7 +82,6 @@ const UpdateAnnouncementModal = ({ isOpen, closeModal, announcement, refetch }) 
             />
           </div>
 
-          {/* Description */}
           <div className="form-control">
             <label className="label font-medium">Description</label>
             <textarea
@@ -89,7 +94,6 @@ const UpdateAnnouncementModal = ({ isOpen, closeModal, announcement, refetch }) 
             />
           </div>
 
-          {/* Category */}
           <div className="form-control">
             <label className="label font-medium">Category</label>
             <select
@@ -106,7 +110,6 @@ const UpdateAnnouncementModal = ({ isOpen, closeModal, announcement, refetch }) 
             </select>
           </div>
 
-          {/* Priority */}
           <div className="form-control">
             <label className="label font-medium">Priority</label>
             <select
@@ -121,7 +124,6 @@ const UpdateAnnouncementModal = ({ isOpen, closeModal, announcement, refetch }) 
             </select>
           </div>
 
-          {/* Start Date */}
           <div className="form-control">
             <label className="label font-medium">Start Date</label>
             <input
@@ -133,7 +135,6 @@ const UpdateAnnouncementModal = ({ isOpen, closeModal, announcement, refetch }) 
             />
           </div>
 
-          {/* End Date */}
           <div className="form-control">
             <label className="label font-medium">End Date</label>
             <input
@@ -145,7 +146,6 @@ const UpdateAnnouncementModal = ({ isOpen, closeModal, announcement, refetch }) 
             />
           </div>
 
-          {/* Photo URL */}
           <div className="form-control">
             <label className="label font-medium">Photo URL</label>
             <input
@@ -157,7 +157,6 @@ const UpdateAnnouncementModal = ({ isOpen, closeModal, announcement, refetch }) 
             />
           </div>
 
-          {/* Buttons */}
           <div className="modal-action justify-end">
             <button type="button" className="btn" onClick={closeModal}>
               Cancel

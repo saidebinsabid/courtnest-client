@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
 @import "tailwindcss";
 @plugin "daisyui"{
     themes: light --default;
@@ -32,25 +33,30 @@
    .font-roboto {
     font-family: "Roboto", sans-serif;
   }
+   .font-mono {
+   font-family: "JetBrains Mono", monospace;
+  }
 }
 
 /* Swiper pagination dot custom styles */
 .swiper-pagination {
-  margin-top: 30px !important; /* move dots further below */
+  margin-top: 30px !important;
   position: relative !important;
 }
 
 .swiper-pagination-bullet {
-  background-color: #facc15 !important; /* yellow-400 from Tailwind */
+  background-color: #facc15 !important; 
   opacity: 1;
 }
 
 .swiper-pagination-bullet-active {
-  background-color: #fde047 !important; /* brighter yellow when active */
+  background-color: #fde047 !important; 
 }
 
 .btn-disabled {
   pointer-events: none;
-  opacity: 0.6; /* visually disabled */
+  opacity: 0.6; 
 }
-
+.leaflet-container {
+  z-index: 0 !important;
+}

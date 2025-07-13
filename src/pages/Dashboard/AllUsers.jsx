@@ -40,9 +40,7 @@ const AllUsers = () => {
       ) : filteredUsers.length === 0 ? (
         <div className="flex flex-col items-center justify-center mt-8 text-center">
           <FaUserSlash className="text-5xl text-yellow-400" />
-          <h2 className="text-xl font-semibold text-black">
-            No users found
-          </h2>
+          <h2 className="text-xl font-semibold text-black">No users found</h2>
           <p className="text-gray-500">Try adjusting your search term.</p>
         </div>
       ) : (

@@ -2,6 +2,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../hooks/useAxiosSecure";
+import { GiCrossMark } from "react-icons/gi";
 
 const AddCouponModal = ({ isOpen, closeModal, refetch }) => {
   const { register, handleSubmit, reset } = useForm();
@@ -15,7 +16,11 @@ const AddCouponModal = ({ isOpen, closeModal, refetch }) => {
       closeModal();
       refetch();
     } catch (err) {
-      Swal.fire("Error", err?.response?.data?.message || "Failed to add coupon", "error");
+      Swal.fire(
+        "Error",
+        err?.response?.data?.message || "Failed to add coupon",
+        "error"
+      );
     }
   };
 
@@ -26,15 +31,14 @@ const AddCouponModal = ({ isOpen, closeModal, refetch }) => {
       <div className="modal-box max-w-2xl rounded-xl shadow-xl border border-gray-200 bg-base-100 relative">
         <button
           onClick={closeModal}
-          className="btn btn-sm btn-circle absolute right-4 top-4 hover:bg-red-200"
+          className="btn btn-sm btn-circle absolute right-4 top-4 hover:bg-yellow-200"
         >
-          ✕
+          <GiCrossMark />
         </button>
 
         <h3 className="text-2xl font-bold text-center mb-6">Add New Coupon</h3>
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-          {/* Coupon Code */}
           <div className="form-control">
             <label className="label font-medium">Coupon Code</label>
             <input
@@ -44,7 +48,16 @@ const AddCouponModal = ({ isOpen, closeModal, refetch }) => {
             />
           </div>
 
-          {/* Discount Value */}
+          <div className="form-control">
+            <label className="label font-medium">Photo URL</label>
+            <input
+              type="url"
+              {...register("photo", { required: true })}
+              placeholder="e.g. https://example.com/image.jpg"
+              className="input input-bordered w-full focus:border-primary focus:ring-primary focus:outline-none focus:ring-1"
+            />
+          </div>
+
           <div className="form-control">
             <label className="label font-medium">Discount Value ($)</label>
             <input
@@ -55,9 +68,10 @@ const AddCouponModal = ({ isOpen, closeModal, refetch }) => {
             />
           </div>
 
-          {/* Minimum Booking Amount */}
           <div className="form-control">
-            <label className="label font-medium">Minimum Booking Amount (optional)</label>
+            <label className="label font-medium">
+              Minimum Booking Amount (optional)
+            </label>
             <input
               type="number"
               {...register("minAmount")}
@@ -66,7 +80,6 @@ const AddCouponModal = ({ isOpen, closeModal, refetch }) => {
             />
           </div>
 
-          {/* Start Date */}
           <div className="form-control">
             <label className="label font-medium">Start Date</label>
             <input
@@ -76,7 +89,6 @@ const AddCouponModal = ({ isOpen, closeModal, refetch }) => {
             />
           </div>
 
-          {/* End Date */}
           <div className="form-control">
             <label className="label font-medium">End Date</label>
             <input
@@ -86,7 +98,6 @@ const AddCouponModal = ({ isOpen, closeModal, refetch }) => {
             />
           </div>
 
-          {/* Status */}
           <div className="form-control">
             <label className="label font-medium">Status</label>
             <select
@@ -98,7 +109,6 @@ const AddCouponModal = ({ isOpen, closeModal, refetch }) => {
             </select>
           </div>
 
-          {/* Description */}
           <div className="form-control">
             <label className="label font-medium">Coupon Description</label>
             <textarea
@@ -109,7 +119,6 @@ const AddCouponModal = ({ isOpen, closeModal, refetch }) => {
             />
           </div>
 
-          {/* Action Buttons */}
           <div className="modal-action justify-end">
             <button type="button" onClick={closeModal} className="btn">
               Cancel

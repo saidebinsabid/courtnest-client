@@ -34,7 +34,9 @@ const PaymentHistoryTable = ({ payments }) => {
               >
                 <td>{offset + idx + 1}</td>
                 <td className="font-medium">
-                 <span className="bg-green-100 px-2 py-1 rounded-full">{item.transactionId}</span>
+                  <span className="bg-green-100 px-2 py-1 rounded-full">
+                    {item.transactionId}
+                  </span>
                 </td>
                 <td>${item.paymentAmount}</td>
                 <td>{item.paymentMethod}</td>

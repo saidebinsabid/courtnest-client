@@ -3,18 +3,13 @@ import { useEffect } from "react";
 import Swal from "sweetalert2";
 import useAuth from "../hooks/useAuth";
 import useAxiosSecure from "../hooks/useAxiosSecure";
+import { GiCrossMark } from "react-icons/gi";
 
 const AddAnnouncementModal = ({ isOpen, closeModal, refetch }) => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
 
-  const {
-    register,
-    handleSubmit,
-    reset,
-    setValue,
-    formState: { errors },
-  } = useForm();
+  const { register, handleSubmit, reset, setValue } = useForm();
 
   useEffect(() => {
     if (isOpen) {
@@ -33,7 +28,7 @@ const AddAnnouncementModal = ({ isOpen, closeModal, refetch }) => {
       closeModal();
       refetch();
     } catch (err) {
-      Swal.fire("Error", "Failed to add announcement", "error");
+      Swal.fire("Error", "Failed to add announcement", err);
     }
   };
 
@@ -45,12 +40,14 @@ const AddAnnouncementModal = ({ isOpen, closeModal, refetch }) => {
         {/* Close Button */}
         <button
           onClick={closeModal}
-          className="btn btn-sm btn-circle absolute right-4 top-4 hover:bg-red-200"
+          className="btn btn-sm btn-circle absolute right-4 top-4 hover:bg-yellow-200"
         >
-          ✕
+          <GiCrossMark />
         </button>
 
-        <h3 className="font-bold text-2xl mb-6 text-center">Add New Announcement</h3>
+        <h3 className="font-bold text-2xl mb-6 text-center">
+          Add New Announcement
+        </h3>
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           {/* Title */}

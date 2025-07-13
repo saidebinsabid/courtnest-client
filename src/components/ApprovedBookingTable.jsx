@@ -1,4 +1,3 @@
-// ApprovedBookingTable.jsx
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import ReactPaginate from "react-paginate";
@@ -50,12 +49,12 @@ const ApprovedBookingTable = ({ bookings, onCancel, onPay }) => {
                   </span>
                 </td>
                 <td className="flex flex-col gap-2">
-                 <button
-  onClick={() => onPay(booking)}
-  className="btn btn-sm flex items-center gap-1 bg-[#facc15] text-black hover:bg-black hover:text-white transition duration-200 ease-in-out disabled:opacity-50"
->
-  Pay ${booking.totalPrice}
-</button>
+                  <button
+                    onClick={() => onPay(booking)}
+                    className="btn btn-sm flex items-center gap-1 bg-[#facc15] text-black hover:bg-black hover:text-white transition duration-200 ease-in-out disabled:opacity-50"
+                  >
+                    Pay ${booking.totalPrice}
+                  </button>
 
                   <button
                     onClick={() => onCancel(booking._id)}

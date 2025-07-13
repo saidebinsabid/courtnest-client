@@ -5,7 +5,6 @@ import {
   FaClock,
   FaBullhorn,
   FaCheckCircle,
-  FaMoneyBillAlt,
   FaHistory,
   FaUserShield,
   FaUsersCog,
@@ -24,17 +23,32 @@ const DashboardLayout = () => {
         User Panel
       </li>
       <li>
-        <NavLink to="/dashboard/user/profile">
+        <NavLink
+          to="/dashboard/user/profile"
+          className={({ isActive }) =>
+            isActive ? "font-semibold text-primary border-b-2" : "text-white"
+          }
+        >
           <FaUser className="mr-2" /> My Profile
         </NavLink>
       </li>
       <li>
-        <NavLink to="/dashboard/user/pending-booking">
+        <NavLink
+          to="/dashboard/user/pending-booking"
+          className={({ isActive }) =>
+            isActive ? "font-semibold text-primary border-b-2" : "text-white"
+          }
+        >
           <FaClock className="mr-2" /> Pending Bookings
         </NavLink>
       </li>
       <li>
-        <NavLink to="/dashboard/user/update-announcement">
+        <NavLink
+          to="/dashboard/user/update-announcement"
+          className={({ isActive }) =>
+            isActive ? "font-semibold text-primary border-b-2" : "text-white"
+          }
+        >
           <FaBullhorn className="mr-2" /> Announcements
         </NavLink>
       </li>
@@ -46,33 +60,63 @@ const DashboardLayout = () => {
         Member Panel
       </li>
       <li>
-        <NavLink to="/dashboard/member/profile">
+        <NavLink
+          to="/dashboard/member/profile"
+          className={({ isActive }) =>
+            isActive ? "font-semibold text-primary border-b-2" : "text-white"
+          }
+        >
           <FaUser className="mr-2" /> My Profile
         </NavLink>
       </li>
       <li>
-        <NavLink to="/dashboard/member/pending-booking">
+        <NavLink
+          to="/dashboard/member/pending-booking"
+          className={({ isActive }) =>
+            isActive ? "font-semibold text-primary border-b-2" : "text-white"
+          }
+        >
           <FaClock className="mr-2" /> Pending Bookings
         </NavLink>
       </li>
       <li>
-        <NavLink to="/dashboard/member/all-announcement">
+        <NavLink
+          to="/dashboard/member/all-announcement"
+          className={({ isActive }) =>
+            isActive ? "font-semibold text-primary border-b-2" : "text-white"
+          }
+        >
           <FaBullhorn className="mr-2" /> Announcements
         </NavLink>
       </li>
 
       <li>
-        <NavLink to="/dashboard/member/approved-booking">
+        <NavLink
+          to="/dashboard/member/approved-booking"
+          className={({ isActive }) =>
+            isActive ? "font-semibold text-primary border-b-2" : "text-white"
+          }
+        >
           <FaCheckCircle className="mr-2" /> Approved Bookings
         </NavLink>
       </li>
       <li>
-        <NavLink to="/dashboard/member/confirmed-booking">
+        <NavLink
+          to="/dashboard/member/confirmed-booking"
+          className={({ isActive }) =>
+            isActive ? "font-semibold text-primary border-b-2" : "text-white"
+          }
+        >
           <FaClipboardCheck className="mr-2" /> Confirmed Bookings
         </NavLink>
       </li>
       <li>
-        <NavLink to="/dashboard/member/payment-history">
+        <NavLink
+          to="/dashboard/member/payment-history"
+          className={({ isActive }) =>
+            isActive ? "font-semibold text-primary border-b-2" : "text-white"
+          }
+        >
           <FaHistory className="mr-2" /> Payment History
         </NavLink>
       </li>
@@ -85,42 +129,82 @@ const DashboardLayout = () => {
         Admin Panel
       </li>
       <li>
-        <NavLink to="/dashboard/admin/profile">
+        <NavLink
+          to="/dashboard/admin/profile"
+          className={({ isActive }) =>
+            isActive ? "font-semibold text-primary border-b-2" : "text-white"
+          }
+        >
           <FaUserShield className="mr-2" /> Admin Profile
         </NavLink>
       </li>
       <li>
-        <NavLink to="/dashboard/manage-booking">
+        <NavLink
+          to="/dashboard/manage-booking"
+          className={({ isActive }) =>
+            isActive ? "font-semibold text-primary border-b-2" : "text-white"
+          }
+        >
           <FaClipboardCheck className="mr-2" /> Manage Bookings
         </NavLink>
       </li>
       <li>
-        <NavLink to="/dashboard/manage-user">
+        <NavLink
+          to="/dashboard/manage-user"
+          className={({ isActive }) =>
+            isActive ? "font-semibold text-primary border-b-2" : "text-white"
+          }
+        >
           <FaUsersCog className="mr-2" /> Manage Members
         </NavLink>
       </li>
       <li>
-        <NavLink to="/dashboard/all-user">
+        <NavLink
+          to="/dashboard/all-user"
+          className={({ isActive }) =>
+            isActive ? "font-semibold text-primary border-b-2" : "text-white"
+          }
+        >
           <FaUsers className="mr-2" /> All Users
         </NavLink>
       </li>
       <li>
-        <NavLink to="/dashboard/manage-court">
+        <NavLink
+          to="/dashboard/manage-court"
+          className={({ isActive }) =>
+            isActive ? "font-semibold text-primary border-b-2" : "text-white"
+          }
+        >
           <FaThLarge className="mr-2" /> Manage Courts
         </NavLink>
       </li>
       <li>
-        <NavLink to="/dashboard/admin/confirmed-booking">
+        <NavLink
+          to="/dashboard/admin/confirmed-booking"
+          className={({ isActive }) =>
+            isActive ? "font-semibold text-primary border-b-2" : "text-white"
+          }
+        >
           <FaClipboardCheck className="mr-2" /> Confirmed Bookings
         </NavLink>
       </li>
       <li>
-        <NavLink to="/dashboard/admin/manage-coupon">
+        <NavLink
+          to="/dashboard/admin/manage-coupon"
+          className={({ isActive }) =>
+            isActive ? "font-semibold text-primary border-b-2" : "text-white"
+          }
+        >
           <FaTags className="mr-2" /> Manage Coupons
         </NavLink>
       </li>
       <li>
-        <NavLink to="/dashboard/admin/manage-announcement">
+        <NavLink
+          to="/dashboard/admin/manage-announcement"
+          className={({ isActive }) =>
+            isActive ? "font-semibold text-primary border-b-2" : "text-white"
+          }
+        >
           <FaBullhorn className="mr-2" /> Make Announcement
         </NavLink>
       </li>

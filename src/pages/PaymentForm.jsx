@@ -1,9 +1,5 @@
 import React, { useState } from "react";
-import {
-  CardElement,
-  useElements,
-  useStripe,
-} from "@stripe/react-stripe-js";
+import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { useParams, useNavigate } from "react-router";
 import { useQuery } from "@tanstack/react-query";
 import Swal from "sweetalert2";
@@ -11,7 +7,12 @@ import useAxiosSecure from "../hooks/useAxiosSecure";
 import useAuth from "../hooks/useAuth";
 import Loading from "../components/Loading";
 import { HiOutlineMail } from "react-icons/hi";
-import { MdSportsTennis, MdAccessTime, MdDateRange, MdAttachMoney } from "react-icons/md";
+import {
+  MdSportsTennis,
+  MdAccessTime,
+  MdDateRange,
+  MdAttachMoney,
+} from "react-icons/md";
 
 const PaymentForm = () => {
   const { id } = useParams();
@@ -66,7 +67,9 @@ const PaymentForm = () => {
 
       if (res.data.valid) {
         if (baseAmount < res.data.minAmount) {
-          setCouponError(`Minimum amount for this coupon is $${res.data.minAmount}.`);
+          setCouponError(
+            `Minimum amount for this coupon is $${res.data.minAmount}.`
+          );
           setDiscount(0);
           setIsApplying(false);
           return;
@@ -75,7 +78,11 @@ const PaymentForm = () => {
         setDiscount(res.data.discountAmount);
         setCouponError("");
         setCouponApplied(true);
-        Swal.fire("Coupon Applied", `You got $${res.data.discountAmount} off!`, "success");
+        Swal.fire(
+          "Coupon Applied",
+          `You got $${res.data.discountAmount} off!`,
+          "success"
+        );
       } else {
         setDiscount(0);
         setCouponError(res.data.message || "Invalid or expired coupon.");
@@ -171,7 +178,6 @@ const PaymentForm = () => {
       </h2>
 
       <div className="bg-white shadow-2xl rounded-2xl p-8 space-y-6">
-        {/* COUPON SECTION */}
         <div className="flex flex-col sm:flex-row gap-3 items-start sm:items-center">
           <input
             type="text"
@@ -188,7 +194,7 @@ const PaymentForm = () => {
               disabled={isApplying}
               className="btn btn-primary btn-md"
             >
-              {isApplying ? "Applying..." : "Apply"}
+              {isApplying ? "" : "Apply"}
             </button>
           )}
         </div>
@@ -201,65 +207,78 @@ const PaymentForm = () => {
 
         {/* PAYMENT FORM */}
         <form onSubmit={handleSubmit} className="space-y-4">
-           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-    {/* Email */}
-    <div>
-      <label className="flex items-center gap-2 mb-1 text-gray-700 font-medium">
-        <HiOutlineMail className="text-lg" />
-        Email
-      </label>
-      <input className="input input-bordered w-full" value={user.email} readOnly />
-    </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {/* Email */}
+            <div>
+              <label className="flex items-center gap-2 mb-1 text-gray-700 font-medium">
+                <HiOutlineMail className="text-lg" />
+                Email
+              </label>
+              <input
+                className="input input-bordered w-full"
+                value={user.email}
+                readOnly
+              />
+            </div>
 
-    {/* Court Type */}
-    <div>
-      <label className="flex items-center gap-2 mb-1 text-gray-700 font-medium">
-        <MdSportsTennis className="text-lg" />
-        Court Type
-      </label>
-      <input className="input input-bordered w-full" value={booking.courtType} readOnly />
-    </div>
+            <div>
+              <label className="flex items-center gap-2 mb-1 text-gray-700 font-medium">
+                <MdSportsTennis className="text-lg" />
+                Court Type
+              </label>
+              <input
+                className="input input-bordered w-full"
+                value={booking.courtType}
+                readOnly
+              />
+            </div>
 
-    {/* Slots */}
-    <div>
-      <label className="flex items-center gap-2 mb-1 text-gray-700 font-medium">
-        <MdAccessTime className="text-lg" />
-        Selected Slots
-      </label>
-      <input
-        className="input input-bordered w-full"
-        value={booking.slots?.join(", ")}
-        readOnly
-      />
-    </div>
+            {/* Slots */}
+            <div>
+              <label className="flex items-center gap-2 mb-1 text-gray-700 font-medium">
+                <MdAccessTime className="text-lg" />
+                Selected Slots
+              </label>
+              <input
+                className="input input-bordered w-full"
+                value={booking.slots?.join(", ")}
+                readOnly
+              />
+            </div>
 
-    {/* Date */}
-    <div>
-      <label className="flex items-center gap-2 mb-1 text-gray-700 font-medium">
-        <MdDateRange className="text-lg" />
-        Booking Date
-      </label>
-      <input className="input input-bordered w-full" value={booking.date} readOnly />
-    </div>
+            <div>
+              <label className="flex items-center gap-2 mb-1 text-gray-700 font-medium">
+                <MdDateRange className="text-lg" />
+                Booking Date
+              </label>
+              <input
+                className="input input-bordered w-full"
+                value={booking.date}
+                readOnly
+              />
+            </div>
 
-    {/* Total Amount */}
-    <div>
-      <label className="flex items-center gap-2 mb-1 text-gray-700 font-medium">
-        <MdAttachMoney className="text-lg" />
-        Total Payable Amount
-      </label>
-      <input
-        className="input input-bordered w-full font-bold text-green-600"
-        value={`$${finalAmount}`}
-        readOnly
-      />
-    </div>
-  </div> 
+            <div>
+              <label className="flex items-center gap-2 mb-1 text-gray-700 font-medium">
+                <MdAttachMoney className="text-lg" />
+                Total Payable Amount
+              </label>
+              <input
+                className="input input-bordered w-full font-bold text-green-600"
+                value={`$${finalAmount}`}
+                readOnly
+              />
+            </div>
+          </div>
 
           <div className="mt-4">
-            <label className="block font-semibold mb-2 text-gray-700">Card Details</label>
+            <label className="block font-semibold mb-2 text-gray-700">
+              Card Details
+            </label>
             <div className="p-4 bg-gray-100 rounded border">
-              <CardElement options={{ style: { base: { fontSize: "16px" } } }} />
+              <CardElement
+                options={{ style: { base: { fontSize: "16px" } } }}
+              />
             </div>
           </div>
 
@@ -270,7 +289,7 @@ const PaymentForm = () => {
               processing ? "opacity-60 cursor-not-allowed" : ""
             }`}
           >
-            {processing ? "Processing..." : `Pay $${finalAmount}`}
+            {processing ? "" : `Pay $${finalAmount}`}
           </button>
         </form>
       </div>

@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../hooks/useAxiosSecure";
+import { GiCrossMark } from "react-icons/gi";
 
 const UpdateCouponModal = ({ isOpen, closeModal, coupon, refetch }) => {
   const { register, handleSubmit, reset, setValue } = useForm({
@@ -17,27 +18,28 @@ const UpdateCouponModal = ({ isOpen, closeModal, coupon, refetch }) => {
   });
   const axiosSecure = useAxiosSecure();
 
-useEffect(() => {
-  if (coupon) {
-    Object.entries(coupon).forEach(([key, value]) => {
-      if (key === "startDate" || key === "endDate") {
-        // Format date string for date input (ensure YYYY-MM-DD)
-        if (value) {
-          // If value is already a string like "2025-07-23", just use it
-          // If value is a Date object, convert to YYYY-MM-DD
-          const dateStr = value instanceof Date
-            ? value.toISOString().split("T")[0]
-            : value.toString().slice(0, 10);
-          setValue(key, dateStr);
+  useEffect(() => {
+    if (coupon) {
+      Object.entries(coupon).forEach(([key, value]) => {
+        if (key === "startDate" || key === "endDate") {
+          // Format date string for date input (ensure YYYY-MM-DD)
+          if (value) {
+            // If value is already a string like "2025-07-23", just use it
+            // If value is a Date object, convert to YYYY-MM-DD
+            const dateStr =
+              value instanceof Date
+                ? value.toISOString().split("T")[0]
+                : value.toString().slice(0, 10);
+            setValue(key, dateStr);
+          }
+        } else {
+          setValue(key, value);
         }
-      } else {
-        setValue(key, value);
-      }
-    });
-  } else {
-    reset();
-  }
-}, [coupon, setValue, reset]);
+      });
+    } else {
+      reset();
+    }
+  }, [coupon, setValue, reset]);
 
   if (!isOpen || !coupon) return null;
 
@@ -61,9 +63,9 @@ useEffect(() => {
       <div className="modal-box max-w-2xl rounded-xl shadow-xl border border-gray-200 bg-base-100 relative">
         <button
           onClick={closeModal}
-          className="btn btn-sm btn-circle absolute right-4 top-4 hover:bg-red-200"
+          className="btn btn-sm btn-circle absolute right-4 top-4 hover:bg-yellow-200"
         >
-          ✕
+          <GiCrossMark />
         </button>
 
         <h3 className="text-2xl font-bold text-center mb-6">Update Coupon</h3>
@@ -79,6 +81,16 @@ useEffect(() => {
             />
           </div>
 
+          <div className="form-control">
+            <label className="label font-medium">Photo URL</label>
+            <input
+              type="url"
+              {...register("photo", { required: true })}
+              placeholder="e.g. https://example.com/image.jpg"
+              className="input input-bordered w-full focus:border-primary focus:outline-none"
+            />
+          </div>
+
           {/* Discount Value */}
           <div className="form-control">
             <label className="label font-medium">Discount Value ($)</label>
@@ -90,9 +102,10 @@ useEffect(() => {
             />
           </div>
 
-          {/* Minimum Booking Amount */}
           <div className="form-control">
-            <label className="label font-medium">Minimum Booking Amount (optional)</label>
+            <label className="label font-medium">
+              Minimum Booking Amount (optional)
+            </label>
             <input
               type="number"
               {...register("minAmount")}
@@ -101,7 +114,6 @@ useEffect(() => {
             />
           </div>
 
-          {/* Start Date */}
           <div className="form-control">
             <label className="label font-medium">Start Date</label>
             <input
@@ -111,7 +123,6 @@ useEffect(() => {
             />
           </div>
 
-          {/* End Date */}
           <div className="form-control">
             <label className="label font-medium">End Date</label>
             <input
@@ -121,7 +132,6 @@ useEffect(() => {
             />
           </div>
 
-          {/* Status */}
           <div className="form-control">
             <label className="label font-medium">Status</label>
             <select
@@ -144,7 +154,6 @@ useEffect(() => {
             />
           </div>
 
-          {/* Action Buttons */}
           <div className="modal-action justify-end">
             <button type="button" onClick={closeModal} className="btn">
               Cancel

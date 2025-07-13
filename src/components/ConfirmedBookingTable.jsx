@@ -11,7 +11,6 @@ const ConfirmedBookingTable = ({ bookings }) => {
 
   return (
     <div className="w-full">
-      {/* Scrollable Table */}
       <div className="overflow-x-auto overflow-y-hidden shadow-lg rounded-lg">
         <table className="table w-full">
           <thead className="bg-gray-100 text-gray-700">

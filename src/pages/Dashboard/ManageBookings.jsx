@@ -32,11 +32,11 @@ const ManageBookings = () => {
     },
   });
 
- const rejectBookingMutation = useMutation({
-  mutationFn: async (bookingId) => {
-    const res = await axiosSecure.patch(`/bookings/reject/${bookingId}`);
-    return res.data;
-  },
+  const rejectBookingMutation = useMutation({
+    mutationFn: async (bookingId) => {
+      const res = await axiosSecure.patch(`/bookings/reject/${bookingId}`);
+      return res.data;
+    },
     onSuccess: () => {
       Swal.fire("Rejected!", "Booking has been rejected.", "success");
       queryClient.invalidateQueries(["bookings"]);

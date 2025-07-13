@@ -10,35 +10,33 @@ import useAuth from "../../hooks/useAuth";
 
 const AdminProfile = () => {
   const axiosSecure = useAxiosSecure();
-  const { user } = useAuth(); // fetch logged-in admin
+  const { user } = useAuth();
 
-const { data: stats = {}, isLoading } = useQuery({
-  queryKey: ["admin-stats", user?.email],
-  enabled: !!user?.email, // prevent running if no user
-  queryFn: async () => {
-    const res = await axiosSecure.get(`/admin-stats?email=${user?.email}`);
-    return res.data;
-  },
-});
-
+  const { data: stats = {}, isLoading } = useQuery({
+    queryKey: ["admin-stats", user?.email],
+    enabled: !!user?.email,
+    queryFn: async () => {
+      const res = await axiosSecure.get(`/admin-stats?email=${user?.email}`);
+      return res.data;
+    },
+  });
 
   if (isLoading) return <Loading />;
 
-const {
-  name,
-  email,
-  photoURL,
-  registerd_at,
-  totalUsers,
-  totalMembers,
-  totalCourts,
-} = stats;
-console.log("Stats:", stats);
-  // parse the date here once, and pass a Date instance
+  const {
+    name,
+    email,
+    photoURL,
+    registerd_at,
+    totalUsers,
+    totalMembers,
+    totalCourts,
+  } = stats;
+  // console.log("Stats:", stats);
   const registeredAtDate = parseMongoDate(registerd_at);
 
   return (
-     <div className="w-11/12 mx-auto py-10">
+    <div className="w-11/12 mx-auto py-10">
       <div className="flex flex-col md:flex-row gap-6 items-center justify-center">
         <div className="w-full md:w-1/2 bg-base-200 p-4 rounded-xl shadow-lg">
           <ProfileCard

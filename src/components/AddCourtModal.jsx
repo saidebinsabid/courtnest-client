@@ -3,6 +3,7 @@ import useAxiosSecure from "../hooks/useAxiosSecure";
 import { v4 as uuidv4 } from "uuid";
 import { useEffect } from "react";
 import Swal from "sweetalert2";
+import { GiCrossMark } from "react-icons/gi";
 
 const surfaceOptions = ["Grass", "Clay", "Hard", "Synthetic", "Wooden"];
 const courtStatuses = ["Available", "Maintenance", "Unavailable"];
@@ -84,7 +85,6 @@ const AddCourtModal = ({ isOpen, closeModal, refetch }) => {
     }
   };
 
-  // Reusable classes
   const inputClass =
     "input input-bordered w-full bg-neutral-800 text-white border-gray-600 placeholder:text-gray-400 focus:border-primary focus:ring-2 focus:ring-primary";
   const selectClass =
@@ -101,12 +101,11 @@ const AddCourtModal = ({ isOpen, closeModal, refetch }) => {
                 Add New Court
               </h3>
               <button onClick={closeModal} className="btn hover:bg-primary">
-                ✕
+                <GiCrossMark />
               </button>
             </div>
 
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-              {/* Court Name and Image */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <label className={labelClass}>Court Name</label>
@@ -133,7 +132,6 @@ const AddCourtModal = ({ isOpen, closeModal, refetch }) => {
                 </div>
               </div>
 
-              {/* Description */}
               <div>
                 <label className={labelClass}>Court Description</label>
                 <textarea
@@ -143,7 +141,6 @@ const AddCourtModal = ({ isOpen, closeModal, refetch }) => {
                 />
               </div>
 
-              {/* Type & Surface */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <label className={labelClass}>Court Type</label>
@@ -174,7 +171,6 @@ const AddCourtModal = ({ isOpen, closeModal, refetch }) => {
                 </div>
               </div>
 
-              {/* Indoor/Outdoor & Capacity */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <label className={labelClass}>Indoor/Outdoor</label>
@@ -198,7 +194,6 @@ const AddCourtModal = ({ isOpen, closeModal, refetch }) => {
                 </div>
               </div>
 
-              {/* Slot Duration & Slot Times */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <label className={labelClass}>Slot Duration</label>
@@ -220,7 +215,6 @@ const AddCourtModal = ({ isOpen, closeModal, refetch }) => {
                 </div>
               </div>
 
-              {/* Closed Days */}
               <div>
                 <label className={labelClass}>Closed Days</label>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-2 mt-4">
@@ -241,7 +235,6 @@ const AddCourtModal = ({ isOpen, closeModal, refetch }) => {
                 </div>
               </div>
 
-              {/* Amenities */}
               <div>
                 <label className={labelClass}>Amenities / Facilities</label>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mt-4">
@@ -262,7 +255,6 @@ const AddCourtModal = ({ isOpen, closeModal, refetch }) => {
                 </div>
               </div>
 
-              {/* Status & Price */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <label className={labelClass}>Status</label>
@@ -287,7 +279,6 @@ const AddCourtModal = ({ isOpen, closeModal, refetch }) => {
                 </div>
               </div>
 
-              {/* Court ID */}
               <div>
                 <label className={labelClass}>Court ID (Auto-generated)</label>
                 <input
@@ -298,7 +289,6 @@ const AddCourtModal = ({ isOpen, closeModal, refetch }) => {
                 />
               </div>
 
-              {/* Actions */}
               <div className="modal-action">
                 <button
                   type="button"

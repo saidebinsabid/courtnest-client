@@ -1,9 +1,9 @@
-// CourtPage.jsx
 import React, { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import CourtCard from "../components/CourtCard";
 import Loading from "../components/Loading";
 import useAxios from "../hooks/useAxios";
+import ReactPaginate from "react-paginate";
 
 const CourtPage = () => {
   const axiosInstance = useAxios();
@@ -24,19 +24,12 @@ const CourtPage = () => {
   const paginatedCourts = courts.slice(startIndex, startIndex + itemsPerPage);
   const totalPages = Math.ceil(courts.length / itemsPerPage);
 
-  const handlePrev = () => {
-    if (page > 1) setPage(page - 1);
-  };
-
-  const handleNext = () => {
-    if (page < totalPages) setPage(page + 1);
-  };
-
   return (
     <div className="w-11/12 mx-auto py-16">
       <h1 className="text-4xl font-bold mb-6">
         Available {courts.length} <span className="text-primary">Courts</span>
       </h1>
+
       <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {paginatedCourts.map((court) => (
           <CourtCard key={court._id} court={court} />
@@ -44,43 +37,25 @@ const CourtPage = () => {
       </div>
 
       {/* Pagination */}
-      <div className="flex justify-center items-center gap-2 mt-8">
-        <button
-          onClick={handlePrev}
-          disabled={page === 1}
-          className="px-2 py-1 border rounded disabled:opacity-50"
-        >
-          &larr;
-        </button>
-
-        {/* Page Numbers */}
-        {[...Array(totalPages)].map((_, i) => {
-          const pageNumber = i + 1;
-          const isActive = pageNumber === page;
-
-          return (
-            <button
-              key={pageNumber}
-              onClick={() => setPage(pageNumber)}
-              className={`w-10 h-10 flex justify-center items-center rounded cursor-pointer
-          ${
-            isActive
-              ? "bg-primary text-black"
-              : "bg-base-100 text-gray-700 hover:bg-gray-200"
-          }`}
-            >
-              {pageNumber}
-            </button>
-          );
-        })}
-
-        <button
-          onClick={handleNext}
-          disabled={page === totalPages}
-          className="px-2 py-1 border rounded disabled:opacity-50"
-        >
-          &rarr;
-        </button>
+      <div className="flex justify-center items-center mt-10">
+        <ReactPaginate
+          pageCount={totalPages}
+          onPageChange={({ selected }) => setPage(selected + 1)}
+          forcePage={page - 1}
+          containerClassName="flex gap-2"
+          activeClassName="bg-yellow-400 text-black"
+          pageClassName="border rounded cursor-pointer"
+          pageLinkClassName="block px-4 py-2"
+          previousLabel="←"
+          nextLabel="→"
+          previousClassName="border rounded cursor-pointer"
+          previousLinkClassName="block px-4 py-2"
+          nextClassName="border rounded cursor-pointer"
+          nextLinkClassName="block px-4 py-2"
+          breakLabel="..."
+          breakClassName="cursor-pointer"
+          breakLinkClassName="block px-4 py-2"
+        />
       </div>
     </div>
   );
