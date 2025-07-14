@@ -18,8 +18,6 @@ To access the Admin Dashboard:
 - **Email:** `admin@gmail.com`  
 - **Password:** `123456`
 
-*(Change these before deploying to production)*
-
 ---
 
 ## 🖼️ Project Banner
