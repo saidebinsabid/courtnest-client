@@ -44,7 +44,7 @@ const UserAnnouncement = () => {
         </div>
       ) : (
         <>
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-2">
+          <div className="grid gap-6 grid-cols-1 xl:grid-cols-2">
             {paginatedUpdates.map((announcement) => (
               <ShowAnnouncementCard
                 key={announcement._id}
@@ -54,28 +54,26 @@ const UserAnnouncement = () => {
           </div>
 
           {/* Pagination */}
-          {updates.length > itemsPerPage && (
-            <div className="mt-10 flex justify-center items-center">
-              <ReactPaginate
-                pageCount={totalPages}
-                onPageChange={({ selected }) => setCurrentPage(selected + 1)}
-                forcePage={currentPage - 1}
-                containerClassName="flex gap-2"
-                activeClassName="bg-yellow-400 text-black"
-                pageClassName="border rounded cursor-pointer"
-                pageLinkClassName="block px-4 py-2"
-                previousLabel="←"
-                nextLabel="→"
-                previousClassName="border rounded cursor-pointer"
-                previousLinkClassName="block px-4 py-2"
-                nextClassName="border rounded cursor-pointer"
-                nextLinkClassName="block px-4 py-2"
-                breakLabel="..."
-                breakClassName="cursor-pointer"
-                breakLinkClassName="block px-4 py-2"
-              />
-            </div>
-          )}
+          <div className="mt-10 flex justify-center items-center">
+            <ReactPaginate
+              pageCount={totalPages}
+              onPageChange={({ selected }) => setCurrentPage(selected + 1)}
+              forcePage={currentPage - 1}
+              containerClassName="flex gap-2"
+              activeClassName="bg-yellow-400 text-black"
+              pageClassName="border rounded cursor-pointer"
+              pageLinkClassName="block px-4 py-2"
+              previousLabel="←"
+              nextLabel="→"
+              previousClassName="border rounded cursor-pointer"
+              previousLinkClassName="block px-4 py-2"
+              nextClassName="border rounded cursor-pointer"
+              nextLinkClassName="block px-4 py-2"
+              breakLabel="..."
+              breakClassName="cursor-pointer"
+              breakLinkClassName="block px-4 py-2"
+            />
+          </div>
         </>
       )}
     </div>

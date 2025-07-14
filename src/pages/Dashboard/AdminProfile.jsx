@@ -37,7 +37,7 @@ const AdminProfile = () => {
 
   return (
     <div className="w-11/12 mx-auto py-10">
-      <div className="flex flex-col md:flex-row gap-6 items-center justify-center">
+      <div className="flex flex-col xl:flex-row gap-6 items-center justify-center">
         <div className="w-full md:w-1/2 bg-base-200 p-4 rounded-xl shadow-lg">
           <ProfileCard
             name={name}

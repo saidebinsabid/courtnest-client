@@ -81,7 +81,7 @@ const Facilities = () => {
     <section className="text-black py-16 px-4 ">
       <div className="max-w-6xl mx-auto text-center">
         <h2 className="text-4xl font-bold mb-4">
-          Discover Our <span className="text-primary">Facilities</span>
+          Discover Our <span className="text-primary font-poppins">Facilities</span>
         </h2>
         <p className="text-gray-500 mb-10 max-w-3xl mx-auto text-lg">
           Book your favorite court first, and unlock a full suite of premium

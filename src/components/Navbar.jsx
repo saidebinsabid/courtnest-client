@@ -128,7 +128,7 @@ const Navbar = () => {
       </li>
       <li>
         <NavLink
-        to='all-announcement'
+        to='/all-announcement'
           className={({ isActive }) =>
             isActive
               ? "text-sm flex items-center gap-2"

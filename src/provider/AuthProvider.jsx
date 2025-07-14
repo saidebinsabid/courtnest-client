@@ -69,7 +69,7 @@ const AuthProvider = ({ children }) => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       setUser(currentUser);
       setLoading(false);
-      if (currentUser?.email) {
+      if (currentUser) {
         await getAndStoreToken(currentUser.email);
       }
     });

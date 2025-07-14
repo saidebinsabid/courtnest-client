@@ -93,7 +93,7 @@ const ManageAnnouncement = () => {
           <p className="text-gray-500 mt-2">Add a new announcement to notify users.</p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-8">
+        <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 mt-8">
           {paginatedAnnouncements.map((announcement) => (
             <AnnouncementCard
               key={announcement._id}

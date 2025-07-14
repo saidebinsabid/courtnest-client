@@ -124,7 +124,7 @@ const UpdateCourtModal = ({ isOpen, closeModal, court, refetch }) => {
 
   return (
     <dialog open className="modal modal-open">
-      <div className="modal-box max-w-2xl bg-gradient-to-tr from-black via-neutral-900 to-zinc-800 shadow-xl rounded-lg text-white">
+      <div className="modal-box max-w-2xl max-h-screen overflow-y-auto bg-gradient-to-tr from-black via-neutral-900 to-zinc-800 shadow-xl rounded-lg text-white">
         <div className="flex justify-between items-center mb-4">
           <h3 className="font-bold text-2xl text-gray-200">Update Court</h3>
           <button onClick={closeModal} className="btn hover:bg-primary">

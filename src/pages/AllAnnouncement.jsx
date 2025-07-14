@@ -81,7 +81,7 @@ const AnnouncementSummaryFilter = () => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
             viewport={{ once: true }}
-            className="grid grid-cols-1 lg:grid-cols-2 gap-6"
+            className="grid grid-cols-1 xl:grid-cols-2 gap-6"
           >
             {currentItems.map((announcement) => (
               <ShowAnnouncementCard

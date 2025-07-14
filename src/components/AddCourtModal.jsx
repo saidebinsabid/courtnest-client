@@ -94,8 +94,8 @@ const AddCourtModal = ({ isOpen, closeModal, refetch }) => {
   return (
     <>
       {isOpen && (
-        <dialog open className="modal modal-open">
-          <div className="modal-box max-w-2xl bg-gradient-to-tr from-black via-neutral-900 to-zinc-800 shadow-xl rounded-lg text-white">
+        <dialog open className="modal modal-open w-full h-full fixed top-0 left-0 flex items-center justify-center z-50 bg-black/50">
+          <div className="modal-box max-w-2xl w-full max-h-screen overflow-y-auto bg-gradient-to-tr from-black via-neutral-900 to-zinc-800 shadow-xl rounded-lg text-white">
             <div className="flex justify-between items-center mb-4">
               <h3 className="font-bold text-2xl text-gray-200">
                 Add New Court

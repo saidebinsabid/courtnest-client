@@ -14,7 +14,7 @@ const AdminPieChart = ({ totalUsers, totalMembers, totalCourts }) => {
 
   return (
     <motion.div
-      className="max-w-lg h-80 w-full mx-auto bg-white rounded-2xl shadow-2xl p-8 border border-gray-100"
+      className="max-w-lg h-80 w-full mx-auto bg-white rounded-2xl shadow-2xl border border-gray-100"
       initial={{ opacity: 0, scale: 0.9 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.5 }}

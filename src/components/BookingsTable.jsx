@@ -17,10 +17,10 @@ const BookingsTable = ({ bookings, onAccept, onReject }) => {
           <thead className="bg-gray-100 text-gray-700">
             <tr>
               <th>#</th>
-              <th>User</th>
+              <th className="hidden lg:inline">User</th>
               <th>Email</th>
               <th>Court</th>
-              <th>Type</th>
+              <th className="hidden lg:inline">Type</th>
               <th>Date</th>
               <th>Slots</th>
               <th>Total</th>

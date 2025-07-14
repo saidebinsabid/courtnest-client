@@ -59,15 +59,14 @@ const AnnouncementCard = ({ announcement, onEdit, onDelete }) => {
   };
 
   return (
-    <motion.div
+   <motion.div
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5, ease: "easeOut" }}
-      className="flex mx-auto bg-white rounded-lg shadow-md overflow-hidden border border-gray-200"
+      className="flex flex-col lg:flex-row mx-auto bg-white rounded-lg shadow-md overflow-hidden border border-gray-200"
     >
-      {/* Image side - 70% */}
-      <div style={{ width: "50%" }} className="min-h-[240px]">
+      <div className="lg:w-5/6">
         <img
           src={announcement.photoUrl}
           alt={announcement.title}
@@ -75,42 +74,40 @@ const AnnouncementCard = ({ announcement, onEdit, onDelete }) => {
         />
       </div>
 
-      {/* Info side - 30% */}
-      <div
-        style={{ width: "50%" }}
-        className="p-4 flex flex-col justify-between text-gray-900"
-      >
-        <div className="space-y-3">
+
+      <div className="lg:w-full p-4 flex flex-col justify-between text-gray-900">
+        <div className="space-y-4">
+          <p className="bg-primary flex justify-center items-center border rounded-tl-2xl rounded-br-2xl py-4">
+            <span className="text-4xl font-extrabold">
+              {formatDate(announcement.startDate)}
+            </span>
+          </p>
           <h3 className="text-2xl font-bold">{announcement.title}</h3>
 
-          <p className="text-sm text-gray-500 line-clamp-3">
+          <p className="text-md text-gray-700 line-clamp-3">
             {announcement.description}
           </p>
 
-          <div className="text-xs font-semibold space-y-1">
-            <div className="flex items-center gap-1">
+          <div className="text-md font-semibold flex justify-between">
+            <div className="flex items-center bg-gray-300 px-4 py-1  rounded-full">
               {getCategoryIcon(announcement.category)}
               <span>{announcement.category}</span>
             </div>
-            <div className="flex items-center gap-1">
+            <div className="flex items-center bg-slate-300 px-4 py-1  rounded-full">
               {getPriorityIcon(announcement.priority)}
               <span>{announcement.priority}</span>
             </div>
           </div>
 
-          <p className="flex items-center text-sm text-gray-600">
-            <FaCalendarAlt className="mr-1" />
-            {formatDate(announcement.startDate)} -{" "}
-            {formatDate(announcement.endDate)}
-          </p>
-
-          <p className="flex items-center text-xs text-gray-600">
-            <FaUser className="mr-1" />
-            By: {announcement.createdBy}
+          <p className="flex gap-3 items-center text-md text-gray-600 uppercase">
+            <span>Finished At:</span>
+            <span className="text-black font-bold">
+              {formatDate(announcement.endDate)}
+            </span>
           </p>
         </div>
 
-        {/* Buttons */}
+         {/* Buttons */}
         <div className="flex justify-between flex-wrap gap-4 mt-4">
           <button
             className="btn btn-sm btn-primary"
@@ -131,3 +128,4 @@ const AnnouncementCard = ({ announcement, onEdit, onDelete }) => {
 };
 
 export default AnnouncementCard;
+  
