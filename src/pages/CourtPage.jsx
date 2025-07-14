@@ -26,8 +26,8 @@ const CourtPage = () => {
 
   return (
     <div className="w-11/12 mx-auto py-16">
-      <h1 className="text-4xl font-bold mb-6">
-        Available {courts.length} <span className="text-primary">Courts</span>
+      <h1 className="text-xl md:text-4xl flex items-center gap-1 font-bold mb-6">
+        Available {courts.length} <h2 className="text-primary">Courts</h2>
       </h1>
 
       <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">

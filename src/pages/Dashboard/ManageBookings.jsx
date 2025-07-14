@@ -11,7 +11,7 @@ const ManageBookings = () => {
   const { data: bookings = [], isLoading } = useQuery({
     queryKey: ["bookings"],
     queryFn: async () => {
-      const res = await axiosSecure.get("/bookings");
+      const res = await axiosSecure.get("/bookings-request");
       return res.data;
     },
   });

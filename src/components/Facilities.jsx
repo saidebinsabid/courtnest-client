@@ -78,7 +78,7 @@ const facilities = [
 
 const Facilities = () => {
   return (
-    <section className="text-black py-16 px-4 font-roboto">
+    <section className="text-black py-16 px-4 ">
       <div className="max-w-6xl mx-auto text-center">
         <h2 className="text-4xl font-bold mb-4">
           Discover Our <span className="text-primary">Facilities</span>

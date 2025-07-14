@@ -91,7 +91,7 @@ const Register = () => {
     }
   };
   return (
-    <section className="w-11/12 mx-auto bg-base-100 flex items-center justify-center py-24 font-roboto">
+    <section className="w-11/12 mx-auto bg-base-100 flex items-center justify-center py-24 ">
       <div className="bg-white shadow-2xl rounded-lg p-6 md:p-12 w-full max-w-5xl flex flex-col md:flex-row gap-10 items-center">
         {/* Left Side: Lottie Animation */}
         <div className="w-full md:w-1/2">

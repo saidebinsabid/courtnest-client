@@ -41,7 +41,7 @@ const PaymentHistoryCard = ({ payments }) => {
 
             <div className="flex items-center justify-end gap-2 text-sm">
               <FaFutbol className="text-orange-400" size={20} />
-              <span className="font-mono text-3xl font-semibold">
+              <span className=" text-3xl font-semibold">
                 {item.courtName}
               </span>
             </div>

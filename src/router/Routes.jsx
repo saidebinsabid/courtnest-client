@@ -29,6 +29,10 @@ import ManageCoupon from "../pages/Dashboard/ManageCoupon";
 import ManageAnnouncement from "../pages/Dashboard/ManageAnnouncement";
 import UserAnnouncement from "../pages/Dashboard/UserAnnouncement";
 import MemberAnnouncement from "../pages/Dashboard/MemberAnnouncement";
+import AboutUs from "../pages/AboutUs";
+import About from "../pages/About";
+import Forbidden from "../pages/Forbidden";
+import AllAnnouncement from "../pages/AllAnnouncement";
 
 
 
@@ -44,6 +48,18 @@ export const router = createBrowserRouter([
       {
         path: '/court',
         element: <CourtPage></CourtPage>,
+      },
+      {
+        path: '/about-us',
+        element: <About></About>,
+      },
+      {
+        path: '/all-announcement',
+        element: <AllAnnouncement></AllAnnouncement>,
+      },
+      {
+        path: '/forbidden',
+        element: <Forbidden></Forbidden>,
       },
     ],
   },

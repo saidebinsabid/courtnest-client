@@ -10,7 +10,16 @@ const AddCouponModal = ({ isOpen, closeModal, refetch }) => {
 
   const onSubmit = async (data) => {
     try {
-      await axiosSecure.post("/coupons", { ...data, created_at: new Date() });
+      const payload = {
+        ...data,
+        created_at: new Date(),
+        startDate: new Date(data.startDate),
+        endDate: new Date(data.endDate),
+        value: parseFloat(data.value),
+        minAmount: parseFloat(data.minAmount),
+      };
+
+      await axiosSecure.post("/coupons", payload);
       Swal.fire("Success", "Coupon added successfully", "success");
       reset();
       closeModal();
@@ -44,16 +53,6 @@ const AddCouponModal = ({ isOpen, closeModal, refetch }) => {
             <input
               {...register("code", { required: true })}
               placeholder="e.g. SUMMER10"
-              className="input input-bordered w-full focus:border-primary focus:ring-primary focus:outline-none focus:ring-1"
-            />
-          </div>
-
-          <div className="form-control">
-            <label className="label font-medium">Photo URL</label>
-            <input
-              type="url"
-              {...register("photo", { required: true })}
-              placeholder="e.g. https://example.com/image.jpg"
               className="input input-bordered w-full focus:border-primary focus:ring-primary focus:outline-none focus:ring-1"
             />
           </div>

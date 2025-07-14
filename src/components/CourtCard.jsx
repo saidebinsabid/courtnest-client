@@ -58,7 +58,7 @@ const CourtCard = ({ court }) => {
         {/* Slot Times Dropdown */}
         <div className="mb-2 flex justify-between items-center gap-3">
           {/* Label */}
-          <label className="text-sm font-medium text-gray-700 whitespace-nowrap flex items-center gap-1 font-roboto">
+          <label className="text-sm font-medium text-gray-700 whitespace-nowrap flex items-center gap-1 ">
             <FaCalendarAlt className="text-primary" />
             Available Slot
           </label>
@@ -85,7 +85,7 @@ const CourtCard = ({ court }) => {
         {/* Book Now Button */}
         <button
         onClick={handleBookingClick}
-        className="mt-auto font-roboto w-full bg-primary text-black hover:text-white hover:bg-primary/90 flex items-center justify-center gap-2 py-2 rounded"
+        className="mt-auto  w-full bg-primary text-black hover:text-white hover:bg-primary/90 flex items-center justify-center gap-2 py-2 rounded"
       >
         Book Now <FaArrowRightFromBracket />
       </button>

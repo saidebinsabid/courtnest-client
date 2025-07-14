@@ -65,7 +65,7 @@ const Login = () => {
   };
 
   return (
-    <section className="w-11/12 mx-auto py-24 font-robotoo">
+    <section className="w-11/12 mx-auto py-24 o">
       <div className="bg-white shadow-2xl rounded-lg overflow-hidden max-w-5xl w-full mx-auto grid grid-cols-1 md:grid-cols-2">
         {/* Left - Lottie */}
         <div className="bg-gray-100 p-6 flex items-center justify-center">

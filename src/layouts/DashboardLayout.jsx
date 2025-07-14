@@ -212,7 +212,7 @@ const DashboardLayout = () => {
   );
   const { role, roleLoading } = useUserRole();
   return (
-    <div className="drawer lg:drawer-open font-roboto">
+    <div className="drawer lg:drawer-open ">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
 
       <div className="drawer-content flex flex-col min-h-screen bg-gray-100 dark:bg-gray-900">

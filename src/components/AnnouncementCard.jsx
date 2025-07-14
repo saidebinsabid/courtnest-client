@@ -1,21 +1,23 @@
-import { FaEdit, FaTrash } from "react-icons/fa";
+import React from "react";
+import { motion } from "framer-motion";
 import {
+  FaEdit,
+  FaTrash,
   FaBullhorn,
   FaCalendarAlt,
   FaExclamationTriangle,
   FaTools,
   FaSyncAlt,
+  FaUser,
 } from "react-icons/fa";
 import { MdLowPriority, MdPriorityHigh } from "react-icons/md";
-import { BsFillLightningFill } from "react-icons/bs";
-import { FaUser } from "react-icons/fa";
-import { BsTextParagraph } from "react-icons/bs";
+import { BsFillLightningFill, BsTextParagraph } from "react-icons/bs";
 
 const AnnouncementCard = ({ announcement, onEdit, onDelete }) => {
   const getCategoryIcon = (category) => {
     switch (category) {
       case "General":
-        return <FaBullhorn className="inline-block mr-1 text-yellow-300" />;
+        return <FaBullhorn className="inline-block mr-1 text-yellow-400" />;
       case "Event":
         return <FaCalendarAlt className="inline-block mr-1 text-blue-400" />;
       case "Alert":
@@ -46,65 +48,85 @@ const AnnouncementCard = ({ announcement, onEdit, onDelete }) => {
     }
   };
 
+  const formatDate = (dateStr) => {
+    if (!dateStr) return "N/A";
+    const date = new Date(dateStr);
+    return date.toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+    });
+  };
+
   return (
-    <div
-      className="relative rounded-lg overflow-hidden shadow border bg-cover bg-center"
-      style={{
-        backgroundImage: `url(${announcement.photoUrl})`,
-        minHeight: "240px",
-      }}
+    <motion.div
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
+      className="flex mx-auto bg-white rounded-lg shadow-md overflow-hidden border border-gray-200"
     >
-      <div className="absolute inset-0 bg-[rgba(0,0,0,0.4)]"></div>
-      <div className="relative p-4 text-white flex flex-col h-full justify-between">
-        <div className="space-y-4">
-          <h3 className="text-3xl font-bold bg-gradient-to-r from-yellow-400 to-red-600 bg-clip-text text-transparent">
-            {announcement.title}
-          </h3>
-          <p className="text-sm">
-            <span className="bg-white text-black px-2 py-1 rounded-full">
+      {/* Image side - 70% */}
+      <div style={{ width: "50%" }} className="min-h-[240px]">
+        <img
+          src={announcement.photoUrl}
+          alt={announcement.title}
+          className="w-full h-full object-cover p-4"
+        />
+      </div>
+
+      {/* Info side - 30% */}
+      <div
+        style={{ width: "50%" }}
+        className="p-4 flex flex-col justify-between text-gray-900"
+      >
+        <div className="space-y-3">
+          <h3 className="text-2xl font-bold">{announcement.title}</h3>
+
+          <p className="text-sm text-gray-500 line-clamp-3">
+            {announcement.description}
+          </p>
+
+          <div className="text-xs font-semibold space-y-1">
+            <div className="flex items-center gap-1">
               {getCategoryIcon(announcement.category)}
-              {announcement.category}
-            </span>{" "}
-            ||{" "}
-            <span className="bg-black text-white px-2 py-1 rounded-full">
+              <span>{announcement.category}</span>
+            </div>
+            <div className="flex items-center gap-1">
               {getPriorityIcon(announcement.priority)}
-              {announcement.priority}
-            </span>
+              <span>{announcement.priority}</span>
+            </div>
+          </div>
+
+          <p className="flex items-center text-sm text-gray-600">
+            <FaCalendarAlt className="mr-1" />
+            {formatDate(announcement.startDate)} -{" "}
+            {formatDate(announcement.endDate)}
           </p>
 
-          <p className="text-md font-semibold flex items-center gap-2">
-            <BsTextParagraph className="text-base text-white" />
-            {announcement.description?.slice(0, 100)}...
-          </p>
-
-          <p className="text-xs flex items-center gap-2">
-            <FaCalendarAlt className="text-sm text-white" />
-            From: {announcement.startDate?.slice(0, 10)} to{" "}
-            {announcement.endDate?.slice(0, 10)}
-          </p>
-
-          <p className="text-xs flex items-center gap-2">
-            <FaUser className="text-sm text-white" />
+          <p className="flex items-center text-xs text-gray-600">
+            <FaUser className="mr-1" />
             By: {announcement.createdBy}
           </p>
         </div>
 
-        <div className="flex justify-between mt-5">
+        {/* Buttons */}
+        <div className="flex justify-between flex-wrap gap-4 mt-4">
           <button
             className="btn btn-sm btn-primary"
             onClick={() => onEdit(announcement)}
           >
-            <FaEdit />
+            <FaEdit className="mr-1" /> Edit
           </button>
           <button
             className="btn btn-sm btn-error"
             onClick={() => onDelete(announcement._id)}
           >
-            <FaTrash />
+            <FaTrash className="mr-1" /> Delete
           </button>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

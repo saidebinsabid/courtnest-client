@@ -1,44 +1,42 @@
 import axios from "axios";
-import useAuth from "./useAuth";
 import { useNavigate } from "react-router";
+import { useEffect } from "react";
 
 const axiosSecure = axios.create({
-  baseURL: `${import.meta.env.VITE_API_URL}`,
+  baseURL: import.meta.env.VITE_API_URL,
+  withCredentials: true,
 });
 
 const useAxiosSecure = () => {
-  const { user, logoutUser } = useAuth();
   const navigate = useNavigate();
 
-  axiosSecure.interceptors.request.use(
-    (config) => {
-      config.headers.Authorization = `Bearer ${user.accessToken}`;
-      return config;
-    },
-    (error) => {
-      return Promise.reject(error);
-    }
-  );
+  useEffect(() => {
+    const requestInterceptor = axiosSecure.interceptors.request.use(
+      (config) => {
+        config.withCredentials = true;
+        return config;
+      },
+      (error) => Promise.reject(error)
+    );
+    const responseInterceptor = axiosSecure.interceptors.response.use(
+      (res) => res,
+      (error) => {
+        const status = error?.response?.status;
 
-  axiosSecure.interceptors.response.use(
-    (res) => {
-      return res;
-    },
-    (error) => {
-      const status = error.status;
-      if (status === 403) {
-        navigate("/forbidden");
-      } else if (status === 401) {
-        logoutUser()
-          .then(() => {
-            navigate("/login");
-          })
-          .catch(() => {});
+        if (status === 403) {
+          navigate("/forbidden");
+        } else if (status === 401) {
+          navigate("/login");
+        }
+
+        return Promise.reject(error);
       }
-
-      return Promise.reject(error);
-    }
-  );
+    );
+    return () => {
+      axiosSecure.interceptors.request.eject(requestInterceptor);
+      axiosSecure.interceptors.response.eject(responseInterceptor);
+    };
+  }, [navigate]);
 
   return axiosSecure;
 };

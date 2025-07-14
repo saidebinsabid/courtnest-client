@@ -81,16 +81,6 @@ const UpdateCouponModal = ({ isOpen, closeModal, coupon, refetch }) => {
             />
           </div>
 
-          <div className="form-control">
-            <label className="label font-medium">Photo URL</label>
-            <input
-              type="url"
-              {...register("photo", { required: true })}
-              placeholder="e.g. https://example.com/image.jpg"
-              className="input input-bordered w-full focus:border-primary focus:outline-none"
-            />
-          </div>
-
           {/* Discount Value */}
           <div className="form-control">
             <label className="label font-medium">Discount Value ($)</label>

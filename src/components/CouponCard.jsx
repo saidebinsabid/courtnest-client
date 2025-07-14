@@ -63,80 +63,54 @@ const CouponCard = ({ coupon, refetch, setEditingCoupon }) => {
     }
   };
 
+  function formatDate(dateStr) {
+    if (!dateStr) return "N/A";
+    const date = new Date(dateStr);
+    return date.toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+    });
+  }
+
   return (
     <div
-      className="relative rounded-lg overflow-hidden shadow border text-white min-h-[260px]"
-      style={{
-        backgroundImage: photo ? `url(${photo})` : undefined,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-      }}
+      className="rounded-lg p-6 bg-[#fafafa] border border-[#ddd] shadow-sm min-h-[260px] flex flex-col justify-between font-mon"
+      style={{ color: "#111" }}
     >
-      <div className="absolute inset-0 bg-[rgba(0,0,0,0.46)]" />
+      <div className="flex justify-between items-center mb-4">
+        <h2 className="text-3xl font-semibold tracking-widest">{code}</h2>
+      </div>
 
-      <div className="relative z-10 p-4 flex flex-col justify-between h-full">
-        <div className="space-y-4">
-          <div className="border-5 border-t-0 border-r-0 max-w-2/4">
-            {" "}
-            <h3 className="text-2xl md:text-4xl font-bold font-mono bg-gradient-to-r from-yellow-400 via-orange-500 to-pink-500 bg-clip-text text-transparent">
-              {code}
-            </h3>
-          </div>
-          <p className="absolute right-0 top-0 flex items-center gap-1 bg-black px-3 py-1 rounded-tl-full text-md font-semibold">
-            <FaTags className="text-yellow-300" />
-            Discount:{" "}
-            <span className="font-medium">
-              {minAmount ? ((value / minAmount) * 100).toFixed(0) : 0}%
-            </span>
-          </p>
+      <p className="mb-5 text-md font-semibold text-gray-600 text-center">
+        Save <span className="text-2xl text-black">{value}%</span> on bookings
+        over <span>${minAmount || 0}</span>
+      </p>
 
-          {description && (
-            <p className="text-sm text-gray-200">{description}</p>
-          )}
+      {description && (
+        <p className="text-sm mb-6 leading-relaxed text-gray-600 line-clamp-3 text-center">
+          {description}
+        </p>
+      )}
 
-          <div className="space-y-2">
-            <p className="text-sm flex items-center gap-1">
-              <FaMoneyBillWave className="text-yellow-400" />
-              Min Amount: ${minAmount || "None"}
-            </p>
+      <p className="text-sm font-medium text-gray-600 text-center">
+        Valid: <span className="text-black">{formatDate(startDate)}</span> to{" "}
+        <span className="text-black">{formatDate(endDate)}</span>
+      </p>
 
-            <p className="text-sm flex items-center gap-1">
-              {status === "active" ? (
-                <FaCheckCircle className="text-green-400" />
-              ) : (
-                <FaTimesCircle className="text-red-400" />
-              )}
-              Status:{" "}
-              <span
-                className={`font-bold uppercase ${
-                  status === "active" ? "text-green-400" : "text-red-400"
-                }`}
-              >
-                {status}
-              </span>
-            </p>
-
-            <p className="text-sm flex items-center gap-1">
-              <FaCalendarAlt className="text-primary" />
-              Valid: {formatDate(startDate)} to {formatDate(endDate)}
-            </p>
-          </div>
-        </div>
-
-        <div className="flex justify-between mt-4">
-          <button
-            className="btn btn-sm bg-yellow-400 text-black hover:bg-yellow-500"
-            onClick={() => setEditingCoupon(coupon)}
-          >
-            <FaEdit className="mr-1" /> Update
-          </button>
-          <button
-            className="btn btn-sm bg-red-500 text-white hover:bg-red-600"
-            onClick={handleDelete}
-          >
-            <FaTrash className="mr-1" /> Delete
-          </button>
-        </div>
+      <div className="flex justify-between mt-4">
+        <button
+          className="btn btn-sm bg-yellow-400 text-black hover:bg-yellow-500"
+          onClick={() => setEditingCoupon(coupon)}
+        >
+          <FaEdit className="mr-1" /> Update
+        </button>
+        <button
+          className="btn btn-sm bg-red-500 text-white hover:bg-red-600"
+          onClick={handleDelete}
+        >
+          <FaTrash className="mr-1" /> Delete
+        </button>
       </div>
     </div>
   );

@@ -58,10 +58,19 @@ const Navbar = () => {
         >Courts</NavLink>
       </li>
       <li>
-        <NavLink>About</NavLink>
+        <NavLink to='/about-us'
+        className={({ isActive }) =>
+            isActive ? "font-semibold text-primary border-b-2" : "text-white"
+          }
+        >About</NavLink>
       </li>
       <li>
-        <NavLink>Contact</NavLink>
+        <NavLink
+       to='all-announcement'
+       className={({ isActive }) =>
+            isActive ? "font-semibold text-primary border-b-2" : "text-white"
+          }
+        >Announcement</NavLink>
       </li>
       {!user && (
         <li>
@@ -107,6 +116,7 @@ const Navbar = () => {
       </li>
       <li>
         <NavLink
+        to='/about-us'
           className={({ isActive }) =>
             isActive
               ? "text-sm flex items-center gap-2"
@@ -118,13 +128,14 @@ const Navbar = () => {
       </li>
       <li>
         <NavLink
+        to='all-announcement'
           className={({ isActive }) =>
             isActive
               ? "text-sm flex items-center gap-2"
               : "text-black text-sm flex items-center gap-2"
           }
         >
-          <FaEnvelope /> Contact
+          <FaEnvelope /> Announcement
         </NavLink>
       </li>
       {!user && (
@@ -145,6 +156,7 @@ const Navbar = () => {
         <>
           <li>
             <NavLink
+            to='/dashboard'
               className={({ isActive }) =>
                 isActive
                   ? "text-sm flex items-center gap-2"

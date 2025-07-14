@@ -51,7 +51,7 @@ const Hero = () => {
                   <h2 className="text-3xl md:text-5xl font-bold font-poppins mb-4">
                     {banner.heading}
                   </h2>
-                  <p className="text-base md:text-lg font-roboto text-gray-300">
+                  <p className="text-base md:text-lg  text-gray-300">
                     {banner.description}
                   </p>
                 </div>

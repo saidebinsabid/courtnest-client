@@ -12,16 +12,16 @@ import { RiPhoneLine, RiMailLine, RiMapPinLine } from "react-icons/ri";
 const Footer = () => {
   return (
     <footer
-      className="w-full bg-cover bg-center relative font-roboto"
+      className="w-full bg-cover bg-center relative "
       style={{ backgroundImage: `url(${footerBg})` }}
     >
       {/* Black overlay */}
       <div className="absolute inset-0 bg-[rgba(0,0,0,0.3)]"></div>
 
       {/* Footer content */}
-      <div className="relative w-11/12 mx-auto py-16 flex flex-col md:flex-row justify-between gap-10 text-white z-10">
+      <div className="relative w-11/12 mx-auto py-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-between gap-10 text-white z-10">
         {/* Left Side */}
-        <div className="md:w-1/2 space-y-6">
+        <div className="space-y-6">
           {/* Logo */}
           <div className="flex items-center">
             <img className="w-14" src={logoImage} alt="CourtNest logo" />
@@ -98,7 +98,7 @@ const Footer = () => {
         </div>
 
         {/* Right Side */}
-        <div className="md:w-1/2 space-y-6">
+        <div className="space-y-6">
           <h2 className="text-3xl lg:text-4xl font-semibold">
             Subscribe <span className="text-primary">Now</span>
           </h2>
