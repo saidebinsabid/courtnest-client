@@ -59,7 +59,7 @@ const AnnouncementCard = ({ announcement, onEdit, onDelete }) => {
   };
 
   return (
-   <motion.div
+    <motion.div
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
@@ -73,7 +73,6 @@ const AnnouncementCard = ({ announcement, onEdit, onDelete }) => {
           className="w-full h-full object-cover p-4"
         />
       </div>
-
 
       <div className="lg:w-full p-4 flex flex-col justify-between text-gray-900">
         <div className="space-y-4">
@@ -107,7 +106,7 @@ const AnnouncementCard = ({ announcement, onEdit, onDelete }) => {
           </p>
         </div>
 
-         {/* Buttons */}
+        {/* Buttons */}
         <div className="flex justify-between flex-wrap gap-4 mt-4">
           <button
             className="btn btn-sm btn-primary"
@@ -128,4 +127,3 @@ const AnnouncementCard = ({ announcement, onEdit, onDelete }) => {
 };
 
 export default AnnouncementCard;
-  

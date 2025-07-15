@@ -215,7 +215,7 @@ const DashboardLayout = () => {
     <div className="drawer lg:drawer-open ">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
 
-      <div className="drawer-content flex flex-col min-h-screen bg-gray-100 dark:bg-gray-900">
+      <div className="drawer-content flex flex-col min-h-screen bg-gray-100">
         {/* Navbar (Mobile only) */}
 
         <div className="navbar bg-[#18181b]/100 backdrop-blur-md w-full lg:hidden shadow-md">

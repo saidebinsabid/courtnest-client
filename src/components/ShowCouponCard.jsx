@@ -16,7 +16,6 @@ const ShowCouponCard = ({ coupon }) => {
     minAmount,
     startDate,
     endDate,
-    status,
     description,
   } = coupon;
 
@@ -32,12 +31,11 @@ const ShowCouponCard = ({ coupon }) => {
 
   return (
    <div
-      className="rounded-lg p-6 bg-[#fafafa] border border-[#ddd] shadow-sm min-h-[260px] flex flex-col justify-between font-mon"
+      className="rounded-lg p-8 bg-[#fafafa] border border-[#ddd] shadow-sm min-h-[260px] flex flex-col justify-between font-mon"
       style={{ color: "#111" }}
     >
-      <div className="flex justify-between items-center mb-4">
-        <h2 className="text-3xl font-semibold tracking-widest">{code}</h2>
-      </div>
+        <h2 className="text-3xl text-center font-semibold tracking-widest">{code}</h2>
+    
 
       <p className="mb-5 text-md font-semibold text-gray-600">
         Save{" "}

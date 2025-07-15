@@ -1,9 +1,12 @@
-import { FaCalendarAlt, FaTools, FaUser } from "react-icons/fa";
+import { FaBullhorn, FaCalendarAlt, FaExclamationTriangle, FaTools, FaUser } from "react-icons/fa";
 import { FaSyncAlt } from "react-icons/fa";
 import { MdLowPriority, MdPriorityHigh } from "react-icons/md";
 import { BsFillLightningFill } from "react-icons/bs";
 import { motion } from "framer-motion";
+import DescriptionModal from "./DescriptionModal";
+import { useState } from "react";
 const ShowAnnouncementCard = ({ announcement }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const getCategoryIcon = (category) => {
     switch (category) {
       case "General":
@@ -49,6 +52,7 @@ const ShowAnnouncementCard = ({ announcement }) => {
   };
 
   return (
+    <>
     <motion.div
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
@@ -74,7 +78,9 @@ const ShowAnnouncementCard = ({ announcement }) => {
           </p>
           <h3 className="text-2xl font-bold">{announcement.title}</h3>
 
-          <p className="text-md text-gray-700 line-clamp-3">
+          <p className="text-md text-gray-700 line-clamp-3"
+          onClick={() => setIsModalOpen(true)}
+          >
             {announcement.description}
           </p>
 
@@ -98,6 +104,14 @@ const ShowAnnouncementCard = ({ announcement }) => {
         </div>
       </div>
     </motion.div>
+    <DescriptionModal
+    isOpen={isModalOpen}
+    onClose={() => setIsModalOpen(false)}
+    description={announcement.description}
+  />
+    </>
+
+    
   );
 };
 

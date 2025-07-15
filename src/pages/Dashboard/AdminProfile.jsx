@@ -27,13 +27,13 @@ const AdminProfile = () => {
     name,
     email,
     photoURL,
-    registerd_at,
+    registerd_at: registered_at,
     totalUsers,
     totalMembers,
     totalCourts,
   } = stats;
   // console.log("Stats:", stats);
-  const registeredAtDate = parseMongoDate(registerd_at);
+  const registeredAtDate = parseMongoDate(registered_at);
 
   return (
     <div className="w-11/12 mx-auto py-10">

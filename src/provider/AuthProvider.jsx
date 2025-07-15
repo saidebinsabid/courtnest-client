@@ -20,14 +20,56 @@ const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const provider = new GoogleAuthProvider();
 
-  const createUser = (email, password) => {
-    setLoading(true);
-    return createUserWithEmailAndPassword(auth, email, password);
-  };
+const createUser = async (email, password, name, photoURL) => {
+  setLoading(true);
+  try {
+    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    const currentUser = userCredential.user;
 
-  const createUserGoogle = () => {
-    return signInWithPopup(auth, provider);
-  };
+    await updateProfile(currentUser, {
+      displayName: name,
+      photoURL: photoURL,
+    });
+    // console.log("Creating user with:", { name, email, photoURL });
+
+    await axios.post(`${import.meta.env.VITE_API_URL}/users`, {
+      name,
+      email,
+      photoURL,
+    });
+
+    return currentUser;
+  } catch (error) {
+    console.error("Email registration error:", error.message);
+    throw error;
+  } finally {
+    setLoading(false);
+  }
+};
+
+
+
+const createUserGoogle = async () => {
+  setLoading(true);
+  try {
+    const result = await signInWithPopup(auth, provider);
+    const user = result.user;
+    // console.log(user);
+    await axios.post(`${import.meta.env.VITE_API_URL}/users`, {
+      name: user.displayName,
+      email: user.email,
+      photoURL: user.photoURL,
+    });
+
+    return user;
+  } catch (error) {
+    console.error("Google Sign-In error:", error.message);
+    throw error;
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   const logoutUser = () => {
     setLoading(true);

@@ -20,7 +20,7 @@ const UserProfile = () => {
 
   if (isLoading) return <Loading></Loading>;
   if (!userInfo) return <Loading></Loading>;
-  const registeredAtDate = parseMongoDate(userInfo.registerd_at);
+  const registeredAtDate = parseMongoDate(userInfo.registered_at || userInfo.registerd_at);
   return (
     <div className="w-11/12 mx-auto py-16">
       <ProfileCard

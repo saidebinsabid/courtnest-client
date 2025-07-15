@@ -42,19 +42,8 @@ const Login = () => {
   const handleGoogleLogin = async () => {
     try {
       setLoading(true);
-      const result = await createUserGoogle();
-      const user = result.user;
-      const name = user.displayName || "Google User";
-      const photo = user.photoURL || "";
-
-      await updateUser({ displayName: name, photoURL: photo });
-
-      setUser({
-        ...result.user,
-        displayName: name,
-        photoURL: photo,
-      });
-
+      const user = await createUserGoogle();
+      setUser(user);
       toast.success("Google login successful");
       navigate(from, { replace: true });
     } catch (error) {

@@ -20,42 +20,28 @@ const Register = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = async (data) => {
-    const { name, email, password, photoURL } = data;
-    try {
-      const result = await createUser(email, password);
-      const user = result.user;
+const onSubmit = async (data) => {
+  const { name, email, password, photoURL } = data;
+  try {
+    const result = await createUser(email, password, name, photoURL);
+    const user = result;
 
-      await updateUser({
-        displayName: name,
-        photoURL: photoURL,
-      });
+    setUser({
+      ...user,
+      displayName: name,
+      photoURL: photoURL,
+    });
 
-      const userInfo = {
-        name,
-        email,
-        photoURL,
-        role: "user",
-        registered_at: new Date().toISOString(),
-        last_log_in: new Date().toISOString(),
-      };
-      await axiosInstance.post("/users", userInfo);
+    toast.success("Registration successful!");
+    setLoading(false);
+    navigate("/");
+    reset();
+  } catch (err) {
+    toast.error(err.message || "Something went wrong.");
+    setLoading(false);
+  }
+};
 
-      setUser({
-        ...user,
-        displayName: name,
-        photoURL: photoURL,
-      });
-
-      toast.success("Registration successful!");
-      setLoading(false);
-      navigate("/");
-      reset();
-    } catch (err) {
-      toast.error(err.message || "Something went wrong.");
-      setLoading(false);
-    }
-  };
 
   const handleGoogleLogin = async () => {
     setLoading(true);
