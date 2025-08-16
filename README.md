@@ -82,7 +82,7 @@ courtnest-client/
 ### 💻 Frontend
 
 - **React** `^19.1.0`
-- **React Router DOM** `^7.6.3`
+- **React Router** `^7.8.1`
 - **Tailwind CSS** + **DaisyUI**
 - **TanStack React Query**
 - **Axios**
