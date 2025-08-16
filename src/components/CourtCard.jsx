@@ -55,27 +55,26 @@ const CourtCard = ({ court }) => {
         <p className="text-sm text-gray-500 mb-2 flex items-center gap-2">
           {getCourtIcon(type)} {type}
         </p>
-        {/* Slot Times Dropdown */}
-        <div className="mb-2 flex justify-between items-center gap-3">
-          {/* Label */}
-          <label className="text-sm font-medium text-gray-700 whitespace-nowrap flex items-center gap-1 ">
-            <FaCalendarAlt className="text-primary" />
-            Available Slot
-          </label>
-          <select
-            className="border border-gray-300 rounded px-2 py-1 text-sm focus:outline-none focus:border-primary w-36"
-            defaultValue=""
-          >
-            <option value="" disabled>
-              Select Slot
-            </option>
-            {slots.map((slot, idx) => (
-              <option key={idx} value={slot}>
-                {slot}
-              </option>
-            ))}
-          </select>
-        </div>
+        <div className="mb-2 flex flex-col gap-2">
+  {/* Label */}
+  <label className="text-sm font-medium text-gray-700 flex items-center gap-1">
+    <FaCalendarAlt className="text-primary" />
+    Available Slot
+  </label>
+
+  {/* Slots as badges */}
+  <div className="flex flex-wrap gap-2">
+    {slots.map((slot, idx) => (
+      <span
+        key={idx}
+        className="bg-primary text-white text-xs px-2 py-1 rounded-full cursor-pointer hover:bg-primary-dark"
+      >
+        {slot}
+      </span>
+    ))}
+  </div>
+</div>
+
 
         {/* Price */}
         <p className="flex items-center text-sm font-semibold text-gray-700 mb-3">
