@@ -71,6 +71,7 @@ const AnnouncementCard = ({ announcement, onEdit, onDelete }) => {
           src={announcement.photoUrl}
           alt={announcement.title}
           className="w-full h-full object-cover p-4"
+          loading="lazy"
         />
       </div>
 

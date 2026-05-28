@@ -45,7 +45,7 @@ const CourtCard = ({ court }) => {
   return (
     <div className="bg-white shadow-md rounded-2xl overflow-hidden flex flex-col">
       {/* Court Image */}
-      <img src={image} alt={name} className="h-48 w-full object-cover" />
+      <img src={image} alt={name} className="h-48 w-full object-cover" loading="lazy" />
 
       <div className="p-4 flex flex-col justify-between flex-grow">
         <h2 className="text-lg font-bold text-gray-800 mb-2 flex items-center gap-2">

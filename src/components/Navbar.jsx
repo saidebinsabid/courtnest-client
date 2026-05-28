@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { NavLink, useLocation } from "react-router";
-import logoImage from "../assets/website_logo.png";
+import logoImage from "../assets/website_logo.webp";
 import useAuth from "../hooks/useAuth";
 import {
   FaHome,
@@ -72,7 +72,7 @@ const Navbar = () => {
           }
         >Announcement</NavLink>
       </li>
-      {!user && (
+      {!user && !loading && (
         <li>
           <NavLink
             to="/auth/login"
@@ -138,7 +138,7 @@ const Navbar = () => {
           <FaEnvelope /> Announcement
         </NavLink>
       </li>
-      {!user && (
+      {!user && !loading && (
         <li>
           <NavLink
             to="/auth/login"
@@ -178,9 +178,7 @@ const Navbar = () => {
       )}
     </>
   );
-  if (loading) {
-    return <Loading></Loading>;
-  }
+  // Removed blocking loader to speed up visual paint
   return (
     <div
       className={`font-poppins w-full top-0 left-0 z-50 transition-all duration-300 ${
@@ -203,7 +201,9 @@ const Navbar = () => {
         <div className="navbar-end hidden lg:flex">
           <ul className="flex gap-8 text-white">{links}</ul>
           {/*User Avatar Dropdown - Desktop */}
-          {user && (
+          {loading ? (
+            <div className="ml-8 w-8 h-8 rounded-full bg-gray-700/50 animate-pulse"></div>
+          ) : user ? (
             <div className="dropdown dropdown-end">
               <div tabIndex={0} role="button" className="avatar ml-8">
                 <div className="w-8 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
@@ -235,12 +235,14 @@ const Navbar = () => {
                 </li>
               </ul>
             </div>
-          )}
+          ) : null}
         </div>
 
         <div className="lg:hidden flex items-center gap-4 relative">
           {/*  Only show hamburger if NOT logged in */}
-          {!user && (
+          {loading ? (
+            <div className="w-10 h-10 rounded-full bg-gray-700/50 animate-pulse"></div>
+          ) : !user ? (
             <div className="dropdown dropdown-end">
               <div
                 tabIndex={0}
@@ -270,10 +272,8 @@ const Navbar = () => {
                 {mobileLinks}
               </ul>
             </div>
-          )}
-
-          {/*  Avatar dropdown with full menu for logged-in user */}
-          {user && (
+          ) : (
+            /*  Avatar dropdown with full menu for logged-in user */
             <div className="dropdown dropdown-end">
               <div tabIndex={0} role="button" className="avatar">
                 <div className="w-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">

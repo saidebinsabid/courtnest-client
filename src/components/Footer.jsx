@@ -1,6 +1,6 @@
 import React from "react";
-import logoImage from "../assets/website_logo.png";
-import footerBg from "../assets/footer_bg.jpeg"; // replace with your background image
+import logoImage from "../assets/website_logo.webp";
+import footerBg from "../assets/footer_bg.webp"; // replace with your background image
 import {
   FaFacebookF,
   FaInstagram,

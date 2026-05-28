@@ -13,7 +13,7 @@ import {
   FaTags,
   FaClipboardCheck,
 } from "react-icons/fa";
-import logoImage from "../assets/website_logo.png";
+import logoImage from "../assets/website_logo.webp";
 import useUserRole from "../hooks/useUserRole";
 
 const DashboardLayout = () => {

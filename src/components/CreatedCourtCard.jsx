@@ -40,6 +40,7 @@ const CreatedCourtCard = ({ court, refetch, setEditingCourt }) => {
         <img
           src={court.image}
           alt={court.type}
+          loading="lazy"
           className="w-full h-48 object-cover rounded-t-xl"
         />
         <div className="absolute top-0 left-0 px-3 py-1 text-xs font-semibold bg-[#facc15] text-black rounded-tr-full uppercase tracking-wide shadow">

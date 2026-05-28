@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { FaUserTie, FaDumbbell, FaChalkboardTeacher } from "react-icons/fa";
-import AboutBanner from "../assets/About_us_banner.png";
+import AboutBanner from "../assets/About_us_banner.webp";
 
 const AboutUs = () => {
   return (
@@ -17,6 +17,7 @@ const AboutUs = () => {
           <img
             src={AboutBanner}
             alt="About Us"
+            loading="lazy"
             className="w-full h-auto rounded-lg"
           />
           <div className="hidden md:inline absolute top-4 left-16 bg-yellow-400 text-black px-4 py-8 rounded-lg shadow-md">

@@ -2,9 +2,25 @@ import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 import { Link } from "react-router";
-import Loading from "./Loading";
 import useAxios from "../hooks/useAxios";
 import ShowAnnouncementCard from "./ShowAnnouncementCard";
+
+// Skeleton placeholder for event cards
+const EventSkeleton = () => (
+  <div className="flex flex-col lg:flex-row bg-white rounded-lg shadow-md overflow-hidden border border-gray-200 animate-pulse">
+    <div className="lg:w-5/6 bg-gray-200 h-48 lg:h-auto"></div>
+    <div className="lg:w-full p-4 flex flex-col gap-4">
+      <div className="h-12 bg-gray-200 rounded-xl"></div>
+      <div className="h-6 bg-gray-200 rounded w-3/4"></div>
+      <div className="h-4 bg-gray-200 rounded w-full"></div>
+      <div className="h-4 bg-gray-200 rounded w-5/6"></div>
+      <div className="flex gap-2 mt-auto">
+        <div className="h-8 bg-gray-200 rounded-full w-24"></div>
+        <div className="h-8 bg-gray-200 rounded-full w-24"></div>
+      </div>
+    </div>
+  </div>
+);
 
 const RecentEvent = () => {
   const axios = useAxios();
@@ -12,7 +28,6 @@ const RecentEvent = () => {
   const {
     data: events = [],
     isLoading,
-    isFetching,
   } = useQuery({
     queryKey: ["recentEvents"],
     queryFn: async () => {
@@ -25,9 +40,8 @@ const RecentEvent = () => {
         .sort((a, b) => new Date(a.startDate) - new Date(b.startDate));
       return filtered.slice(0, 2);
     },
+    staleTime: 5 * 60 * 1000, // 5 minutes cache
   });
-
-  if (isLoading || isFetching) return <Loading />;
 
   return (
     <section className="py-16 w-full">
@@ -49,8 +63,13 @@ const RecentEvent = () => {
           </Link>
         </div>
 
-        {/* Events */}
-        {events.length === 0 ? (
+        {/* Events or Skeleton */}
+        {isLoading ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <EventSkeleton />
+            <EventSkeleton />
+          </div>
+        ) : events.length === 0 ? (
           <div className="text-center text-gray-400 py-10 text-lg">
             No upcoming events at the moment.
           </div>

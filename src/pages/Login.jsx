@@ -4,7 +4,7 @@ import { NavLink, useLocation, useNavigate } from "react-router";
 import { FaGoogle, FaFacebookF, FaTwitter } from "react-icons/fa";
 import Lottie from "lottie-react";
 import loginAnimation from "../assets/login.json";
-import logo from "../assets/website_logo.png";
+import logo from "../assets/website_logo.webp";
 import useAuth from "../hooks/useAuth";
 import { toast } from "react-toastify";
 

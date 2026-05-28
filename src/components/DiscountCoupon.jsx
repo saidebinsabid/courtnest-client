@@ -12,7 +12,17 @@ import "swiper/css/effect-coverflow";
 
 import ShowCouponCard from "./ShowCouponCard";
 import { FaTags } from "react-icons/fa";
-import Loading from "./Loading";
+
+// Skeleton for coupon card
+const CouponSkeleton = () => (
+  <div className="rounded-lg shadow-md bg-white p-6 animate-pulse mt-8 max-w-[380px] mx-auto w-full">
+    <div className="h-8 bg-gray-200 rounded mb-4 w-3/4 mx-auto"></div>
+    <div className="h-16 bg-gray-200 rounded-xl mb-4"></div>
+    <div className="h-4 bg-gray-200 rounded w-full mb-2"></div>
+    <div className="h-4 bg-gray-200 rounded w-5/6 mb-2"></div>
+    <div className="h-10 bg-gray-200 rounded-full mt-4"></div>
+  </div>
+);
 
 const DiscountCoupon = () => {
   const axios = useAxios();
@@ -25,11 +35,10 @@ const DiscountCoupon = () => {
       const res = await axios.get("/active-coupon");
       return res.data;
     },
+    staleTime: 5 * 60 * 1000, // 5 minutes cache
   });
 
   const initialSlide = coupons.length > 0 ? Math.floor(coupons.length / 2) : 0;
-
-  if (isLoading) return <Loading />;
 
   return (
     <section className="py-16 w-full">
@@ -42,7 +51,14 @@ const DiscountCoupon = () => {
           affordable. Apply codes during checkout to save more!
         </p>
 
-        {coupons.length === 0 ? (
+        {isLoading ? (
+          // Inline skeleton — no full-screen block
+          <div className="flex gap-6 justify-center flex-wrap">
+            <CouponSkeleton />
+            <CouponSkeleton />
+            <CouponSkeleton />
+          </div>
+        ) : coupons.length === 0 ? (
           <motion.div
             initial={{ scale: 0.9, opacity: 0 }}
             whileInView={{ scale: 1, opacity: 1 }}

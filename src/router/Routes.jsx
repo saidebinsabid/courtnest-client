@@ -1,38 +1,48 @@
 import { createBrowserRouter } from "react-router";
+import { lazy, Suspense } from "react";
 import MainLayout from "../layouts/MainLayout";
-import Home from "../pages/Home";
 import AuthLayout from "../layouts/AuthLayout";
-import Login from "../pages/Login";
-import Register from "../pages/Register";
-import ErrorPage from "../pages/ErrorPage";
 import PrivateRoute from "../provider/PrivateRoute";
-import DashboardLayout from "../layouts/DashboardLayout";
-import DashboardHome from "../pages/Dashboard/DashboardHome";
 import AdminRoute from "../routes/AdminRoute";
 import MemberRoute from "../routes/MemberRoute";
 import UserRoute from "../routes/UserRoute";
-import ManageCourts from "../pages/Dashboard/ManageCourts";
-import CourtPage from "../pages/CourtPage";
-import ManageBookings from "../pages/Dashboard/ManageBookings";
-import PendingBookings from "../pages/Dashboard/PendingBookings";
-import UserProfile from "../pages/Dashboard/UserProfile";
-import MemberProfile from "../pages/Dashboard/MemberProfile";
-import AdminProfile from "../pages/Dashboard/AdminProfile";
-import ManageMembers from "../pages/Dashboard/ManageMembers";
-import AllUsers from "../pages/Dashboard/AllUsers";
-import ApprovedBookings from "../pages/Dashboard/ApprovedBookings";
-import Payment from "../pages/Payment";
-import ConfirmedBooking from "../pages/Dashboard/ConfirmedBooking";
-import AdminConfirmedBooking from "../pages/Dashboard/AdminConfirmedBooking";
-import PaymentHistory from "../pages/Dashboard/PaymentHistory";
-import ManageCoupon from "../pages/Dashboard/ManageCoupon";
-import ManageAnnouncement from "../pages/Dashboard/ManageAnnouncement";
-import UserAnnouncement from "../pages/Dashboard/UserAnnouncement";
-import MemberAnnouncement from "../pages/Dashboard/MemberAnnouncement";
-import AboutUs from "../pages/AboutUs";
-import About from "../pages/About";
-import Forbidden from "../pages/Forbidden";
-import AllAnnouncement from "../pages/AllAnnouncement";
+import Loading from "../components/Loading";
+
+// Eagerly load most-visited pages
+import Home from "../pages/Home";
+import ErrorPage from "../pages/ErrorPage";
+
+// Lazily load all other pages
+const Login = lazy(() => import("../pages/Login"));
+const Register = lazy(() => import("../pages/Register"));
+const DashboardLayout = lazy(() => import("../layouts/DashboardLayout"));
+const DashboardHome = lazy(() => import("../pages/Dashboard/DashboardHome"));
+const ManageCourts = lazy(() => import("../pages/Dashboard/ManageCourts"));
+const CourtPage = lazy(() => import("../pages/CourtPage"));
+const ManageBookings = lazy(() => import("../pages/Dashboard/ManageBookings"));
+const PendingBookings = lazy(() => import("../pages/Dashboard/PendingBookings"));
+const UserProfile = lazy(() => import("../pages/Dashboard/UserProfile"));
+const MemberProfile = lazy(() => import("../pages/Dashboard/MemberProfile"));
+const AdminProfile = lazy(() => import("../pages/Dashboard/AdminProfile"));
+const ManageMembers = lazy(() => import("../pages/Dashboard/ManageMembers"));
+const AllUsers = lazy(() => import("../pages/Dashboard/AllUsers"));
+const ApprovedBookings = lazy(() => import("../pages/Dashboard/ApprovedBookings"));
+const Payment = lazy(() => import("../pages/Payment"));
+const ConfirmedBooking = lazy(() => import("../pages/Dashboard/ConfirmedBooking"));
+const AdminConfirmedBooking = lazy(() => import("../pages/Dashboard/AdminConfirmedBooking"));
+const PaymentHistory = lazy(() => import("../pages/Dashboard/PaymentHistory"));
+const ManageCoupon = lazy(() => import("../pages/Dashboard/ManageCoupon"));
+const ManageAnnouncement = lazy(() => import("../pages/Dashboard/ManageAnnouncement"));
+const UserAnnouncement = lazy(() => import("../pages/Dashboard/UserAnnouncement"));
+const MemberAnnouncement = lazy(() => import("../pages/Dashboard/MemberAnnouncement"));
+const About = lazy(() => import("../pages/About"));
+const Forbidden = lazy(() => import("../pages/Forbidden"));
+const AllAnnouncement = lazy(() => import("../pages/AllAnnouncement"));
+
+// Suspense wrapper helper
+const Lazy = ({ children }) => (
+  <Suspense fallback={<Loading />}>{children}</Suspense>
+);
 
 
 
@@ -47,19 +57,19 @@ export const router = createBrowserRouter([
       },
       {
         path: '/court',
-        element: <CourtPage></CourtPage>,
+        element: <Lazy><CourtPage></CourtPage></Lazy>,
       },
       {
         path: '/about-us',
-        element: <About></About>,
+        element: <Lazy><About></About></Lazy>,
       },
       {
         path: '/all-announcement',
-        element: <AllAnnouncement></AllAnnouncement>,
+        element: <Lazy><AllAnnouncement></AllAnnouncement></Lazy>,
       },
       {
         path: '/forbidden',
-        element: <Forbidden></Forbidden>,
+        element: <Lazy><Forbidden></Forbidden></Lazy>,
       },
     ],
   },
@@ -69,96 +79,96 @@ export const router = createBrowserRouter([
     children:[
         {
             path:'/auth/login',
-            element:<Login></Login>
+            element:<Lazy><Login></Login></Lazy>
         },
         {
             path:'/auth/register',
-            element:<Register></Register>
+            element:<Lazy><Register></Register></Lazy>
         }
     ]
   },
   {
     path:'/dashboard',
-    element:<PrivateRoute><DashboardLayout></DashboardLayout></PrivateRoute>,
+    element:<PrivateRoute><Lazy><DashboardLayout></DashboardLayout></Lazy></PrivateRoute>,
     children:[
       {
         index:true,
-        element: <DashboardHome></DashboardHome>
+        element: <Lazy><DashboardHome></DashboardHome></Lazy>
       },
       // User Routes
       {
         path: 'user/profile',
-        element:<UserRoute><UserProfile></UserProfile></UserRoute>
+        element:<UserRoute><Lazy><UserProfile></UserProfile></Lazy></UserRoute>
       },
       {
         path: 'user/pending-booking',
-        element:<UserRoute><PendingBookings></PendingBookings></UserRoute>
+        element:<UserRoute><Lazy><PendingBookings></PendingBookings></Lazy></UserRoute>
       },
       {
         path: 'user/update-announcement',
-        element:<UserRoute><UserAnnouncement></UserAnnouncement></UserRoute>
+        element:<UserRoute><Lazy><UserAnnouncement></UserAnnouncement></Lazy></UserRoute>
       },
       // Member Routes
       {
         path: 'member/profile',
-        element:<MemberRoute><MemberProfile></MemberProfile></MemberRoute>
+        element:<MemberRoute><Lazy><MemberProfile></MemberProfile></Lazy></MemberRoute>
       },
       {
         path: 'member/pending-booking',
-        element:<MemberRoute><PendingBookings></PendingBookings></MemberRoute>
+        element:<MemberRoute><Lazy><PendingBookings></PendingBookings></Lazy></MemberRoute>
       },
       {
         path: 'member/approved-booking',
-        element:<MemberRoute><ApprovedBookings></ApprovedBookings></MemberRoute>
+        element:<MemberRoute><Lazy><ApprovedBookings></ApprovedBookings></Lazy></MemberRoute>
       },
       {
         path: 'member/confirmed-booking',
-        element:<MemberRoute><ConfirmedBooking></ConfirmedBooking></MemberRoute>
+        element:<MemberRoute><Lazy><ConfirmedBooking></ConfirmedBooking></Lazy></MemberRoute>
       },
       {
         path: 'member/payment/:id',
-        element:<MemberRoute><Payment></Payment></MemberRoute>
+        element:<MemberRoute><Lazy><Payment></Payment></Lazy></MemberRoute>
       },
       {
         path: 'member/payment-history',
-        element:<MemberRoute><PaymentHistory></PaymentHistory></MemberRoute>
+        element:<MemberRoute><Lazy><PaymentHistory></PaymentHistory></Lazy></MemberRoute>
       },
       {
         path: 'member/all-announcement',
-        element:<MemberRoute><MemberAnnouncement></MemberAnnouncement></MemberRoute>
+        element:<MemberRoute><Lazy><MemberAnnouncement></MemberAnnouncement></Lazy></MemberRoute>
       },
       // Admin Routes
       {
         path: 'admin/profile',
-        element:<AdminRoute><AdminProfile></AdminProfile></AdminRoute>
+        element:<AdminRoute><Lazy><AdminProfile></AdminProfile></Lazy></AdminRoute>
       },
       {
         path: 'manage-booking',
-        element:<AdminRoute><ManageBookings></ManageBookings></AdminRoute>
+        element:<AdminRoute><Lazy><ManageBookings></ManageBookings></Lazy></AdminRoute>
       },
       {
         path: 'manage-user',
-        element:<AdminRoute><ManageMembers></ManageMembers></AdminRoute>
+        element:<AdminRoute><Lazy><ManageMembers></ManageMembers></Lazy></AdminRoute>
       },
       {
         path: 'all-user',
-        element:<AdminRoute><AllUsers></AllUsers></AdminRoute>
+        element:<AdminRoute><Lazy><AllUsers></AllUsers></Lazy></AdminRoute>
       },
       {
         path: 'manage-court',
-        element:<AdminRoute><ManageCourts></ManageCourts></AdminRoute>
+        element:<AdminRoute><Lazy><ManageCourts></ManageCourts></Lazy></AdminRoute>
       },
       {
         path: 'admin/confirmed-booking',
-        element:<AdminRoute><AdminConfirmedBooking></AdminConfirmedBooking></AdminRoute>
+        element:<AdminRoute><Lazy><AdminConfirmedBooking></AdminConfirmedBooking></Lazy></AdminRoute>
       },
       {
         path: 'admin/manage-coupon',
-        element:<AdminRoute><ManageCoupon></ManageCoupon></AdminRoute>
+        element:<AdminRoute><Lazy><ManageCoupon></ManageCoupon></Lazy></AdminRoute>
       },
       {
         path: 'admin/manage-announcement',
-        element:<AdminRoute><ManageAnnouncement></ManageAnnouncement></AdminRoute>
+        element:<AdminRoute><Lazy><ManageAnnouncement></ManageAnnouncement></Lazy></AdminRoute>
       },
     ]
 
